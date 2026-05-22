@@ -754,6 +754,53 @@ body:not(.is-home) .star{ display:none; }
     padding-right:20px;
   }
 }
+
+/* Question page bottom exits and mobile overflow fix */
+.question-nav-wrap{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:18px;
+  flex-wrap:wrap;
+  margin-top:22px;
+}
+.question-nav-wrap .btn-link{
+  margin-top:0;
+}
+#page-2 .round-tabs,
+#page-2 .round-panels,
+#page-2 .card{
+  max-width:100%;
+}
+#page-2 .q-list li,
+#page-2 .desc,
+#page-2 .panel-title{
+  overflow-wrap:anywhere;
+}
+@media (max-width:520px){
+  #page-2 .round-tabs{
+    width:100%;
+    overflow:visible;
+  }
+  #page-2 .card{
+    overflow:hidden;
+  }
+  .question-nav-wrap{
+    gap:14px;
+    margin-top:20px;
+  }
+}
+
+/* Per-round back button spacing */
+.round-back-wrap{
+  margin-top:16px;
+}
+.round-next-wrap + .round-back-wrap{
+  margin-top:12px;
+}
+.round-back-wrap .btn-link{
+  margin-top:0;
+}
 </style>
 </head>
 <body class="is-home">
@@ -888,6 +935,9 @@ body:not(.is-home) .star{ display:none; }
               <li>聽完對方分享後，可以說一句：「我剛剛從你身上聽見／看見的是……」</li>
             </ol>
           </div>
+          <div class="btn-wrap round-back-wrap round-back-1">
+            <button class="btn-link" data-go="1">← 回今日流程</button>
+          </div>
         </div>
 
         <!-- 第二輪 -->
@@ -901,6 +951,9 @@ body:not(.is-home) .star{ display:none; }
               <li>你最近正在練習接收什麼豐盛？</li>
               <li>聽完對方分享後，給一句祝福或回饋。</li>
             </ol>
+          </div>
+          <div class="btn-wrap round-back-wrap round-back-2">
+            <button class="btn-link" data-go="1">← 回今日流程</button>
           </div>
         </div>
 
@@ -917,13 +970,14 @@ body:not(.is-home) .star{ display:none; }
           </div>
           <div class="btn-wrap round-next-wrap">
             <button class="btn" data-go="3">進入最後沉澱書寫 <span class="arrow">→</span></button>
-            <div><button class="btn-link" data-go="1">← 回今日流程</button></div>
+          </div>
+          <div class="btn-wrap round-back-wrap round-back-3">
+            <button class="btn-link" data-go="1">← 回今日流程</button>
           </div>
         </div>
       </div>
     </div>
   </section>
-
   <!-- ============ 第 4 區｜最後沉澱 ============ -->
   <section class="page" id="page-3">
     <div class="inner">
@@ -1077,6 +1131,11 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+
+
+
+
+
 
 
 
