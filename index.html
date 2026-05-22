@@ -799,6 +799,42 @@ body:not(.is-home) .star{ display:none; }
 .round-back-wrap .btn-link{
   margin-top:0;
 }
+
+/* Live stage lock: host opens the activity step by step */
+.is-locked{
+  opacity:.38;
+  filter:saturate(.65);
+  cursor:not-allowed !important;
+}
+.is-locked .flow-go,
+.is-locked .arrow{
+  opacity:.5;
+}
+.stage-toast{
+  position:fixed;
+  left:50%;
+  bottom:22px;
+  z-index:80;
+  width:min(86vw, 360px);
+  padding:14px 18px;
+  border-radius:16px;
+  border:1px solid rgba(199,154,78,.28);
+  background:rgba(255,252,245,.96);
+  box-shadow:0 16px 42px rgba(98,70,36,.18), 0 0 24px rgba(214,176,104,.18);
+  color:var(--brown-text);
+  font-family:var(--font-serif);
+  font-size:14px;
+  line-height:1.75;
+  text-align:center;
+  transform:translate(-50%, 18px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s ease, transform .35s ease;
+}
+.stage-toast.show{
+  opacity:1;
+  transform:translate(-50%, 0);
+}
 </style>
 </head>
 <body class="is-home">
@@ -1033,25 +1069,102 @@ body:not(.is-home) .star{ display:none; }
 </main>
 
 <script>
+/* ===== 活動開放控制 =====
+   Google Sheet 設定方式：
+   1. 建一張 Sheet，在 B1 輸入目前活動步驟數字 1–10。
+   2. 發佈到網路，取得 CSV 連結，貼到 CONTROL_SHEET_CSV_URL。
+   活動步驟：
+   1 抵達、拿名牌 / 2 開場與冥想 / 3 抽豐盛指引卡 / 4 第一輪豐盛交流 / 5 第二輪豐盛交流
+   6 稍作休息 / 7 第三輪豐盛交流 / 8 沉澱與回饋 / 9 自由分享 / 10 合照也感謝今日豐盛
+   沒填連結時，網站維持全開，方便本機預覽。
+*/
+var CONTROL_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRnEFNaVxbNitvsaq77GSmwYkA500X3Q75jPMiMi9IDEDX_GQrvpgpJ2dZCym25BR7DM8LEC7XULoVA/pub?gid=1324438231&single=true&output=csv';
+var CONTROL_POLL_MS = 5000;
+var currentActivityStep = CONTROL_SHEET_CSV_URL ? 1 : 10;
+
 /* ===== 頁面切換 ===== */
 var pages = document.querySelectorAll('.page');
 var dots  = document.querySelectorAll('.dot');
 var PAGE_NAMES = ['首頁', '今日旅程指引', '交流題目', '最後沉澱', '感謝你帶來的豐盛'];
+var ACTIVITY_STEP_NAMES = ['', '抵達、拿名牌', '開場與冥想', '抽豐盛指引卡', '第一輪豐盛交流', '第二輪豐盛交流', '稍作休息', '第三輪豐盛交流', '沉澱與回饋', '自由分享', '合照也感謝今日豐盛'];
 var progressLabel = document.getElementById('progressLabel');
+var currentPage = 0;
+var currentRound = 0;
+var toastTimer = null;
+
+function pageRequiredStep(pageIndex){
+  if(pageIndex <= 1) return 1;
+  if(pageIndex === 2) return 4;
+  if(pageIndex === 3) return 8;
+  if(pageIndex === 4) return 10;
+  return 10;
+}
+function roundRequiredStep(roundIndex){
+  if(roundIndex === 0) return 4;
+  if(roundIndex === 1) return 5;
+  return 7;
+}
+function canOpenPage(pageIndex){ return pageRequiredStep(pageIndex) <= currentActivityStep; }
+function canOpenRound(roundIndex){ return roundRequiredStep(roundIndex) <= currentActivityStep; }
+function stageText(){
+  return ACTIVITY_STEP_NAMES[Math.max(1, Math.min(10, currentActivityStep))] || '現場流程';
+}
+function showLockedMessage(){
+  var toast = document.getElementById('stageToast');
+  if(!toast){
+    toast = document.createElement('div');
+    toast.id = 'stageToast';
+    toast.className = 'stage-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = '這一段會由現場引導開放，請先跟著現在的「' + stageText() + '」就好。';
+  toast.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ toast.classList.remove('show'); }, 2600);
+}
+function syncLocks(){
+  document.querySelectorAll('[data-go]').forEach(function(el){
+    var target = parseInt(el.getAttribute('data-go'), 10);
+    var open = canOpenPage(target);
+    el.classList.toggle('is-locked', !open);
+    el.setAttribute('aria-disabled', open ? 'false' : 'true');
+  });
+  document.querySelectorAll('.round-tab').forEach(function(tab){
+    var idx = parseInt(tab.getAttribute('data-tab'), 10);
+    var open = canOpenRound(idx);
+    tab.classList.toggle('is-locked', !open);
+    tab.setAttribute('aria-disabled', open ? 'false' : 'true');
+  });
+  document.querySelectorAll('.flow-link[data-round]').forEach(function(item){
+    var idx = parseInt(item.getAttribute('data-round'), 10);
+    var open = canOpenRound(idx);
+    item.classList.toggle('is-locked', !open);
+    item.setAttribute('aria-disabled', open ? 'false' : 'true');
+  });
+  document.querySelectorAll('.flow-link[data-page]').forEach(function(item){
+    var target = parseInt(item.getAttribute('data-page'), 10);
+    var open = canOpenPage(target);
+    item.classList.toggle('is-locked', !open);
+    item.setAttribute('aria-disabled', open ? 'false' : 'true');
+  });
+  if(progressLabel){ progressLabel.textContent = PAGE_NAMES[currentPage] + '　·　目前到 ' + stageText(); }
+}
 
 function goTo(i){
   i = Math.max(0, Math.min(pages.length - 1, i));
+  if(!canOpenPage(i)){ showLockedMessage(); syncLocks(); return; }
+  currentPage = i;
   pages.forEach(function(p, idx){ p.classList.toggle('active', idx === i); });
   dots.forEach(function(d, idx){ d.classList.toggle('active', idx === i); });
-  if(progressLabel){ progressLabel.textContent = PAGE_NAMES[i] + '　·　輕點切換'; }
+  if(progressLabel){ progressLabel.textContent = PAGE_NAMES[i] + '　·　目前到 ' + stageText(); }
   document.body.classList.toggle('is-home', i === 0);
   window.scrollTo({ top:0, behavior:'auto' });
-  // 重新觸發該頁淡入
   document.querySelectorAll('#page-'+i+' .fade-in').forEach(function(el){
     el.classList.remove('visible');
     requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.classList.add('visible'); }); });
   });
   if(history.replaceState){ history.replaceState(null,'','#'+i); }
+  syncLocks();
 }
 
 document.querySelectorAll('[data-go]').forEach(function(el){
@@ -1060,8 +1173,12 @@ document.querySelectorAll('[data-go]').forEach(function(el){
 
 /* ===== 交流題目：分頁切換（一次只看一輪） ===== */
 function selectRound(idx){
+  idx = Math.max(0, Math.min(2, idx));
+  if(!canOpenRound(idx)){ showLockedMessage(); syncLocks(); return; }
+  currentRound = idx;
   document.querySelectorAll('.round-tab').forEach(function(t, i){ t.classList.toggle('active', i === idx); });
   document.querySelectorAll('.round-panel').forEach(function(p, i){ p.classList.toggle('active', i === idx); });
+  syncLocks();
 }
 document.querySelectorAll('.round-tab').forEach(function(tab){
   tab.addEventListener('click', function(){ selectRound(parseInt(this.getAttribute('data-tab'), 10)); });
@@ -1072,7 +1189,12 @@ document.querySelectorAll('.flow-link').forEach(function(item){
   function activate(){
     var round = item.getAttribute('data-round');
     var page  = item.getAttribute('data-page');
-    if(round !== null){ goTo(2); selectRound(parseInt(round,10)); }
+    if(round !== null){
+      var roundIndex = parseInt(round,10);
+      if(!canOpenRound(roundIndex)){ showLockedMessage(); syncLocks(); return; }
+      goTo(2);
+      selectRound(roundIndex);
+    }
     else if(page !== null){ goTo(parseInt(page,10)); }
   }
   item.addEventListener('click', activate);
@@ -1081,9 +1203,45 @@ document.querySelectorAll('.flow-link').forEach(function(item){
   });
 });
 
+function applyRemoteStage(value){
+  var next = parseInt(value, 10);
+  if(isNaN(next)) return;
+  currentActivityStep = Math.max(1, Math.min(10, next));
+  if(currentPage === 2 && !canOpenRound(currentRound)){
+    if(currentActivityStep < 4){ goTo(1); }
+    else if(currentActivityStep < 5){ selectRound(0); }
+    else if(currentActivityStep < 7){ selectRound(1); }
+    else { selectRound(2); }
+  }
+  if(!canOpenPage(currentPage)){
+    if(currentActivityStep >= 10) goTo(4);
+    else if(currentActivityStep >= 8) goTo(3);
+    else if(currentActivityStep >= 4) goTo(2);
+    else goTo(1);
+  }
+  syncLocks();
+}
+function readStageFromCsv(csvText){
+  var firstLine = String(csvText || '').split(/\r?\n/)[0] || '';
+  var cells = firstLine.split(',');
+  var value = cells.length > 1 ? cells[1] : firstLine;
+  var match = String(value).match(/\b(10|[1-9])\b/);
+  return match ? match[1] : null;
+}
+function fetchRemoteStage(){
+  if(!CONTROL_SHEET_CSV_URL) return;
+  var url = CONTROL_SHEET_CSV_URL + (CONTROL_SHEET_CSV_URL.indexOf('?') >= 0 ? '&' : '?') + 't=' + Date.now();
+  fetch(url, { cache:'no-store' })
+    .then(function(res){ return res.text(); })
+    .then(function(text){ applyRemoteStage(readStageFromCsv(text)); })
+    .catch(function(){ syncLocks(); });
+}
+
 /* ===== 首頁淡入 ===== */
 window.addEventListener('DOMContentLoaded', function(){
-  // 依網址 hash 進入對應頁
+  syncLocks();
+  fetchRemoteStage();
+  if(CONTROL_SHEET_CSV_URL){ setInterval(fetchRemoteStage, CONTROL_POLL_MS); }
   var start = parseInt((location.hash||'').replace('#',''),10);
   if(!isNaN(start) && start>=0 && start<pages.length){ goTo(start); }
   else {
@@ -1127,6 +1285,10 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+
+
+
+
 
 
 
