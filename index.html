@@ -835,6 +835,29 @@ body:not(.is-home) .star{ display:none; }
   opacity:1;
   transform:translate(-50%, 0);
 }
+
+/* Stronger lock state for flow items after entrance animations */
+.flow-item.is-locked{
+  opacity:.34 !important;
+  filter:grayscale(.22) saturate(.45) !important;
+  cursor:not-allowed !important;
+}
+.flow-item.is-locked .flow-num{
+  background:rgba(199,154,78,.08) !important;
+  border-color:rgba(199,154,78,.18) !important;
+  color:rgba(154,131,102,.46) !important;
+}
+.flow-item.is-locked .flow-name,
+.flow-item.is-locked .flow-hint,
+.flow-item.is-locked .flow-arrow{
+  color:rgba(154,131,102,.42) !important;
+}
+.flow-item.is-locked .flow-go{
+  opacity:.38 !important;
+}
+.flow-item.is-locked::after{
+  opacity:.25;
+}
 </style>
 </head>
 <body class="is-home">
@@ -1280,6 +1303,7 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+
 
 
 
