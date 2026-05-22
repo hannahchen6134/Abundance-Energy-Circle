@@ -858,6 +858,23 @@ body:not(.is-home) .star{ display:none; }
 .flow-item.is-locked::after{
   opacity:.25;
 }
+
+/* Stronger lock state for main navigation buttons */
+.btn.is-locked,
+.village-btn.is-locked,
+.btn-link.is-locked{
+  opacity:.36 !important;
+  filter:grayscale(.2) saturate(.45) !important;
+  box-shadow:none !important;
+  cursor:not-allowed !important;
+}
+.btn.is-locked{
+  background:linear-gradient(135deg, rgba(199,154,78,.34), rgba(176,127,51,.28)) !important;
+  color:rgba(255,255,255,.72) !important;
+}
+.btn-link.is-locked{
+  color:rgba(154,131,102,.45) !important;
+}
 </style>
 </head>
 <body class="is-home">
@@ -1303,6 +1320,7 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+
 
 
 
