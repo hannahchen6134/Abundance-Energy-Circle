@@ -1191,6 +1191,99 @@ body:not(.is-home) .star{ display:none; }
     filter:none;
   }
 }
+
+/* Restore home title to original solid gold style */
+#page-0 h1{
+  color:#a6782f !important;
+  background:none !important;
+  -webkit-background-clip:border-box !important;
+  background-clip:border-box !important;
+  text-shadow:
+    0 0 18px rgba(214,176,104,.46),
+    0 0 42px rgba(214,176,104,.28),
+    0 10px 34px rgba(112,80,42,.13),
+    0 1px 0 rgba(255,255,255,.68) !important;
+  animation:heroGoldReveal 1.65s cubic-bezier(.2,.72,.18,1) .12s both !important;
+}
+#page-0 h1::after{
+  display:none !important;
+}
+
+/* Low-power home background drift */
+.hero-photo::before{
+  inset:-5% !important;
+  opacity:.28;
+  transform:translate3d(0,0,0) scale(1.06);
+  will-change:transform;
+  animation:heroDriftLowPower 68s ease-in-out infinite alternate !important;
+}
+@keyframes heroDriftLowPower{
+  0%{ transform:translate3d(0,0,0) scale(1.06); }
+  50%{ transform:translate3d(-1.1%,-.7%,0) scale(1.075); }
+  100%{ transform:translate3d(.8%,-1.2%,0) scale(1.065); }
+}
+@media (max-width:520px){
+  .hero-photo::before{
+    inset:-3% !important;
+    opacity:.24;
+    animation-duration:88s !important;
+  }
+  .cover-particles{
+    display:none;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-photo::before{
+    animation:none !important;
+    transform:none !important;
+    will-change:auto;
+  }
+}
+
+/* Clean home title fade-in, no highlight rectangle */
+#page-0 h1{
+  position:relative !important;
+  overflow:visible !important;
+  display:block;
+  color:#a6782f !important;
+  background:none !important;
+  background-image:none !important;
+  -webkit-background-clip:initial !important;
+  background-clip:initial !important;
+  -webkit-text-fill-color:#a6782f !important;
+  text-shadow:
+    0 0 16px rgba(214,176,104,.38),
+    0 8px 28px rgba(112,80,42,.12),
+    0 1px 0 rgba(255,255,255,.72) !important;
+  animation:homeTitleFadeOnly 1.45s cubic-bezier(.2,.72,.18,1) .22s both !important;
+}
+#page-0 h1::before,
+#page-0 h1::after{
+  content:none !important;
+  display:none !important;
+  background:none !important;
+  animation:none !important;
+}
+@keyframes homeTitleFadeOnly{
+  from{
+    opacity:0;
+    transform:translateY(10px);
+    filter:blur(2px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+    filter:blur(0);
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  #page-0 h1{
+    animation:none !important;
+    opacity:1;
+    transform:none;
+    filter:none;
+  }
+}
 </style>
 </head>
 <body class="is-home">
@@ -1639,6 +1732,9 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+
+
+
 
 
 
