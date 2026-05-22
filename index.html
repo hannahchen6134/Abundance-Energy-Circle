@@ -1528,6 +1528,7 @@ body:not(.is-home) .star{ display:none; }
    沒填連結時，網站維持全開，方便本機預覽。
 */
 var CONTROL_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRnEFNaVxbNitvsaq77GSmwYkA500X3Q75jPMiMi9IDEDX_GQrvpgpJ2dZCym25BR7DM8LEC7XULoVA/pub?gid=1324438231&single=true&output=csv';
+var CONTROL_SHEET_LIVE_CSV_URL = 'https://docs.google.com/spreadsheets/d/1XN73jDLzpebhyZbaTyBqcjYu9sgM_IHY32PDW3l1IMo/gviz/tq?tqx=out:csv&gid=1324438231&range=A1:C1';
 var CONTROL_POLL_MS = 5000;
 var currentActivityStep = CONTROL_SHEET_CSV_URL ? 1 : 10;
 
@@ -1676,12 +1677,27 @@ function readStageFromCsv(csvText){
   return match ? match[1] : null;
 }
 function fetchRemoteStage(){
-  if(!CONTROL_SHEET_CSV_URL) return;
-  var url = CONTROL_SHEET_CSV_URL + (CONTROL_SHEET_CSV_URL.indexOf('?') >= 0 ? '&' : '?') + 't=' + Date.now();
-  fetch(url, { cache:'no-store' })
-    .then(function(res){ return res.text(); })
-    .then(function(text){ applyRemoteStage(readStageFromCsv(text)); })
-    .catch(function(){ syncLocks(); });
+  var urls = [];
+  if(typeof CONTROL_SHEET_LIVE_CSV_URL !== 'undefined' && CONTROL_SHEET_LIVE_CSV_URL){ urls.push(CONTROL_SHEET_LIVE_CSV_URL); }
+  if(CONTROL_SHEET_CSV_URL){ urls.push(CONTROL_SHEET_CSV_URL); }
+  if(!urls.length) return;
+  var index = 0;
+  function tryNext(){
+    var source = urls[index++];
+    var url = source + (source.indexOf('?') >= 0 ? '&' : '?') + 't=' + Date.now();
+    fetch(url, { cache:'no-store' })
+      .then(function(res){ if(!res.ok){ throw new Error('stage source unavailable'); } return res.text(); })
+      .then(function(text){
+        var value = readStageFromCsv(text);
+        if(value === null && index < urls.length){ tryNext(); return; }
+        applyRemoteStage(value);
+      })
+      .catch(function(){
+        if(index < urls.length){ tryNext(); }
+        else { syncLocks(); }
+      });
+  }
+  tryNext();
 }
 
 /* ===== 首頁淡入 ===== */
@@ -1732,6 +1748,7 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+
 
 
 
