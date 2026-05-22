@@ -1284,6 +1284,165 @@ body:not(.is-home) .star{ display:none; }
     filter:none;
   }
 }
+
+/* Live guidance interface polish */
+.stage-status{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin:16px auto 0;
+  padding:7px 14px;
+  border-radius:999px;
+  border:1px solid rgba(199,154,78,.24);
+  background:rgba(255,252,245,.72);
+  color:#9a6f2b;
+  font-family:var(--font-serif);
+  font-size:13px;
+  font-weight:600;
+  line-height:1.45;
+  box-shadow:0 6px 20px rgba(176,127,51,.07);
+}
+.flow-item.is-locked::after{
+  content:'尚未開放';
+  margin-left:auto;
+  flex:0 0 auto;
+  align-self:center;
+  padding:3px 8px;
+  border-radius:999px;
+  border:1px solid rgba(199,154,78,.16);
+  background:rgba(255,252,245,.52);
+  color:rgba(154,131,102,.50);
+  font-size:11px;
+  line-height:1.4;
+  letter-spacing:.08em;
+}
+.flow-item.is-locked .flow-go{
+  display:none;
+}
+.round-tab.is-locked::after{
+  content:'尚未開放';
+  display:block;
+  margin-top:2px;
+  font-size:10px;
+  font-family:var(--font-sans);
+  font-weight:500;
+  letter-spacing:.04em;
+  color:rgba(154,131,102,.58);
+}
+#page-2 .stage-status{
+  margin-top:14px;
+}
+@media (max-width:520px){
+  .stage-status{
+    font-size:12.5px;
+    padding:6px 12px;
+  }
+  .flow-item.is-locked::after{
+    font-size:10.5px;
+    padding:2px 7px;
+  }
+}
+@media (max-width:360px){
+  .flow-item.is-locked::after{
+    display:none;
+  }
+}
+
+/* Thank-you page: softer closing, less functional */
+#page-4{
+  justify-content:center;
+}
+#page-4 .card{
+  position:relative;
+  overflow:hidden;
+  padding-top:38px;
+  padding-bottom:34px;
+  background:rgba(255,252,245,.88);
+  border-color:rgba(199,154,78,.20);
+}
+#page-4 .card::before{
+  content:'';
+  position:absolute;
+  inset:-30% -12% auto;
+  height:58%;
+  background:radial-gradient(ellipse at center, rgba(229,190,112,.20), transparent 62%);
+  pointer-events:none;
+}
+#page-4 .eyebrow{
+  color:rgba(176,127,51,.68);
+  letter-spacing:.22em;
+}
+#page-4 h2{
+  color:#8f6428;
+  text-shadow:0 0 18px rgba(214,176,104,.22), 0 1px 0 rgba(255,255,255,.7);
+}
+#page-4 .divider{
+  margin:18px auto 24px;
+  opacity:.72;
+}
+#page-4 .card p{
+  color:#6b5239;
+  font-size:15px;
+  line-height:2.15;
+  letter-spacing:.025em;
+}
+#page-4 .card p + p{
+  margin-top:18px;
+}
+#page-4 .btn-wrap{
+  margin-top:28px;
+}
+#page-4 .closing-feedback{
+  color:#a8752e;
+  background:rgba(255,252,245,.76) !important;
+  border:1px solid rgba(199,154,78,.30);
+  box-shadow:0 8px 22px rgba(176,127,51,.08), 0 0 0 1px rgba(255,255,255,.42) inset !important;
+  font-size:14px;
+  min-width:0;
+  padding:11px 22px;
+  animation:closingFeedbackBreath 6.5s ease-in-out infinite !important;
+}
+#page-4 .closing-feedback .arrow{
+  opacity:.72;
+}
+#page-4 .foot{
+  margin-top:24px;
+  color:rgba(154,131,102,.68);
+  font-size:12.5px;
+  line-height:1.9;
+  letter-spacing:.08em;
+}
+#page-4 > .inner > div:last-child{
+  margin-top:12px;
+}
+#page-4 > .inner > div:last-child .btn-link{
+  color:rgba(154,131,102,.58);
+  font-size:12.5px;
+  text-decoration-color:rgba(199,154,78,.18);
+}
+@keyframes closingFeedbackBreath{
+  0%,100%{ box-shadow:0 8px 22px rgba(176,127,51,.08), 0 0 0 rgba(214,176,104,0) !important; }
+  50%{ box-shadow:0 10px 26px rgba(176,127,51,.12), 0 0 18px rgba(214,176,104,.12) !important; }
+}
+@media (max-width:520px){
+  #page-4 .card{
+    padding-top:34px;
+    padding-bottom:30px;
+  }
+  #page-4 .card p{
+    font-size:14.5px;
+    line-height:2.05;
+  }
+  #page-4 .closing-feedback{
+    width:auto;
+    max-width:230px;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  #page-4 .closing-feedback{
+    animation:none !important;
+  }
+}
 </style>
 </head>
 <body class="is-home">
@@ -1365,6 +1524,7 @@ body:not(.is-home) .star{ display:none; }
         <h2>今日旅程指引</h2>
         <div class="divider"></div>
         <p class="muted center">流程由主持人現場引導，跟著走就好。<br>有箭頭的步驟，可以點進去看更多。</p>
+        <div class="stage-status" id="flowStageStatus">目前流程：讀取中</div>
       </div>
 
       <div class="card" style="margin-top:22px;">
@@ -1383,7 +1543,7 @@ body:not(.is-home) .star{ display:none; }
       </div>
 
       <div class="btn-wrap">
-        <button class="btn" data-go="2">查看交流題目 <span class="arrow">→</span></button>
+        <button class="btn" data-go="2" data-label-open="查看交流題目" data-label-locked="交流題目尚未開放">查看交流題目 <span class="arrow">→</span></button>
         <div><button class="btn-link" data-go="0">← 回首頁</button></div>
       </div>
     </div>
@@ -1397,6 +1557,7 @@ body:not(.is-home) .star{ display:none; }
         <h2>今日豐盛交流題目</h2>
         <div class="divider"></div>
         <p class="muted center">點選輪次，只看當輪的題目。<br>不用急著看完全部，跟著現場引導走就好。</p>
+        <div class="stage-status" id="questionStageStatus">目前開放：讀取中</div>
       </div>
 
       <div class="round-tabs">
@@ -1452,7 +1613,7 @@ body:not(.is-home) .star{ display:none; }
             </ol>
           </div>
           <div class="btn-wrap round-next-wrap">
-            <button class="btn" data-go="3">進入最後沉澱書寫 <span class="arrow">→</span></button>
+            <button class="btn" data-go="3" data-label-open="進入最後沉澱書寫" data-label-locked="沉澱書寫尚未開放">進入最後沉澱書寫 <span class="arrow">→</span></button>
           </div>
           <div class="btn-wrap round-back-wrap round-back-3">
             <button class="btn-link" data-go="1">← 回今日流程</button>
@@ -1484,7 +1645,7 @@ body:not(.is-home) .star{ display:none; }
 
       <div class="btn-wrap">
         <!-- 可修改區塊 2｜Google 表單連結（請把 # 換成你的表單網址） -->
-        <a class="btn" href="https://forms.gle/KeJzVLrQ4mLW81Ny9" target="_blank" rel="noopener" data-form-link>填寫回饋表單 <span class="arrow">→</span></a>
+        <a class="btn closing-feedback" href="https://forms.gle/KeJzVLrQ4mLW81Ny9" target="_blank" rel="noopener" data-form-link>留下今日回饋 <span class="arrow">→</span></a>
         <div><button class="btn-link" data-go="2">← 回交流題目</button></div>
       </div>
     </div>
@@ -1503,7 +1664,7 @@ body:not(.is-home) .star{ display:none; }
         <p>願這份豐盛，繼續在你生活裡流動，<br>期待我們很快再見。</p>
         <div class="btn-wrap">
           <!-- 可修改區塊 2｜Google 表單連結（請把 # 換成你的表單網址） -->
-          <a class="btn" href="https://forms.gle/KeJzVLrQ4mLW81Ny9" target="_blank" rel="noopener" data-form-link>填寫回饋表單 <span class="arrow">→</span></a>
+          <a class="btn closing-feedback" href="https://forms.gle/KeJzVLrQ4mLW81Ny9" target="_blank" rel="noopener" data-form-link>留下今日回饋 <span class="arrow">→</span></a>
         </div>
       </div>
       <!-- 可修改區塊 4｜頁尾署名 -->
@@ -1538,6 +1699,8 @@ var dots  = document.querySelectorAll('.dot');
 var PAGE_NAMES = ['首頁', '今日旅程指引', '交流題目', '最後沉澱', '感謝你帶來的豐盛'];
 var ACTIVITY_STEP_NAMES = ['', '抵達、拿名牌', '開場與冥想', '抽豐盛指引卡', '第一輪豐盛交流', '第二輪豐盛交流', '稍作休息', '第三輪豐盛交流', '沉澱與回饋', '自由分享', '合照也感謝今日豐盛'];
 var progressLabel = document.getElementById('progressLabel');
+var flowStageStatus = document.getElementById('flowStageStatus');
+var questionStageStatus = document.getElementById('questionStageStatus');
 var currentPage = 0;
 var currentRound = 0;
 var toastTimer = null;
@@ -1559,7 +1722,24 @@ function canOpenRound(roundIndex){ return roundRequiredStep(roundIndex) <= curre
 function stageText(){
   return ACTIVITY_STEP_NAMES[Math.max(1, Math.min(10, currentActivityStep))] || '現場流程';
 }
-function showLockedMessage(){
+function openRoundText(){
+  if(currentActivityStep >= 7) return '目前開放：第一輪、第二輪、第三輪';
+  if(currentActivityStep >= 5) return '目前開放：第一輪、第二輪';
+  if(currentActivityStep >= 4) return '目前開放：第一輪';
+  return '交流題目尚未開放';
+}
+function updateButtonLabel(el, open){
+  var openLabel = el.getAttribute('data-label-open');
+  var lockedLabel = el.getAttribute('data-label-locked');
+  if(!openLabel || !lockedLabel) return;
+  var label = (open ? openLabel : lockedLabel) + ' ';
+  var textNode = null;
+  el.childNodes.forEach(function(node){
+    if(node.nodeType === 3 && !textNode){ textNode = node; }
+  });
+  if(textNode){ textNode.nodeValue = label; }
+  else { el.insertBefore(document.createTextNode(label), el.firstChild); }
+}function showLockedMessage(){
   var toast = document.getElementById('stageToast');
   if(!toast){
     toast = document.createElement('div');
@@ -1579,6 +1759,7 @@ function syncLocks(){
     el.classList.toggle('is-locked', !open);
     el.setAttribute('aria-disabled', open ? 'false' : 'true');
     if('disabled' in el){ el.disabled = !open; }
+    updateButtonLabel(el, open);
   });
   document.querySelectorAll('.round-tab').forEach(function(tab){
     var idx = parseInt(tab.getAttribute('data-tab'), 10);
@@ -1595,6 +1776,8 @@ function syncLocks(){
     item.classList.toggle('is-current', step === currentActivityStep);
   });
   if(progressLabel){ progressLabel.textContent = PAGE_NAMES[currentPage] + '　·　目前到 ' + stageText(); }
+  if(flowStageStatus){ flowStageStatus.textContent = '目前流程：' + stageText(); }
+  if(questionStageStatus){ questionStageStatus.textContent = openRoundText(); }
 }
 
 function goTo(i){
@@ -1748,6 +1931,11 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+
+
+
+
+
 
 
 
