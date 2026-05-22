@@ -724,6 +724,36 @@ p + p{ margin-top:14px; }
       0 0 0 1px rgba(255,255,255,.44) inset;
   }
 }
+
+/* Final mobile flow polish */
+body:not(.is-home) .star{ display:none; }
+#page-1 .btn{
+  white-space:nowrap;
+  width:auto;
+  min-width:210px;
+  max-width:230px;
+  padding-left:24px;
+  padding-right:24px;
+}
+@media (max-width:520px){
+  #page-1 .btn{
+    white-space:nowrap;
+    width:auto;
+    min-width:198px;
+    max-width:218px;
+    padding-left:22px;
+    padding-right:22px;
+    line-height:1.35;
+  }
+}
+@media (max-width:360px){
+  #page-1 .btn{
+    min-width:190px;
+    max-width:210px;
+    padding-left:20px;
+    padding-right:20px;
+  }
+}
 </style>
 </head>
 <body class="is-home">
@@ -918,7 +948,6 @@ p + p{ margin-top:14px; }
       <div class="btn-wrap">
         <!-- 可修改區塊 2｜Google 表單連結（請把 # 換成你的表單網址） -->
         <a class="btn" href="https://forms.gle/KeJzVLrQ4mLW81Ny9" target="_blank" rel="noopener" data-form-link>填寫回饋表單 <span class="arrow">→</span></a>
-        <div><button class="btn-link" data-go="4">先看感謝頁 →</button></div>
         <div><button class="btn-link" data-go="2">← 回交流題目</button></div>
       </div>
     </div>
@@ -1048,6 +1077,8 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+
+
 
 
 
