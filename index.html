@@ -1457,6 +1457,72 @@ body:not(.is-home) .village{
   opacity:0 !important;
   visibility:hidden !important;
 }
+
+/* More ritual closing for thank-you page */
+#page-4 .card{
+  box-shadow:
+    0 22px 56px rgba(98,70,36,.14),
+    0 8px 22px rgba(176,127,51,.09),
+    0 0 0 1px rgba(255,255,255,.48) inset;
+}
+#page-4 .card::after{
+  content:'';
+  position:absolute;
+  left:50%;
+  bottom:22px;
+  width:72px;
+  height:1px;
+  transform:translateX(-50%);
+  background:linear-gradient(90deg, transparent, rgba(176,127,51,.38), transparent);
+  opacity:.58;
+  pointer-events:none;
+}
+#page-4 .closing-seal{
+  margin:28px auto 0;
+  max-width:300px;
+  color:rgba(143,100,40,.82);
+  font-family:var(--font-serif);
+  font-size:14px;
+  line-height:2;
+  letter-spacing:.07em;
+  text-align:center;
+  opacity:0;
+  transform:translateY(9px);
+  animation:innerSoftRise .9s cubic-bezier(.2,.72,.18,1) .72s both;
+}
+#page-4 .closing-seal::before,
+#page-4 .closing-seal::after{
+  content:'✦';
+  display:inline-block;
+  margin:0 8px;
+  color:rgba(199,154,78,.45);
+  font-size:10px;
+  transform:translateY(-1px);
+}
+#page-4 .closing-feedback{
+  margin-top:2px;
+}
+#page-4 .btn-wrap{
+  margin-top:18px;
+}
+#page-4 > .inner > div:last-child .btn-link{
+  opacity:.74;
+}
+@media (max-width:520px){
+  #page-4 .closing-seal{
+    max-width:260px;
+    font-size:13.5px;
+    line-height:1.95;
+    margin-top:24px;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  #page-4 .closing-seal{
+    animation:none !important;
+    opacity:1;
+    transform:none;
+  }
+}
 </style>
 </head>
 <body class="is-home">
@@ -1499,7 +1565,7 @@ body:not(.is-home) .village{
     <span class="dot" data-go="3" role="button" aria-label="第4頁 最後沉澱"></span>
     <span class="dot" data-go="4" role="button" aria-label="第5頁 感謝你帶來的豐盛"></span>
   </div>
-  <div class="progress-label" id="progressLabel">首頁　·　輕點切換</div>
+  <div class="progress-label" id="progressLabel">目前流程：讀取中</div>
 </nav>
 
 <main class="viewport">
@@ -1676,6 +1742,7 @@ body:not(.is-home) .village{
         <p>活動後也歡迎留下來，<br>自由聊聊、拍照、交換聯絡方式。</p>
         <p>為了把更多驚喜留給下次相聚，<br>這個小網站今天結束後就會悄悄關閉。</p>
         <p>願這份豐盛，繼續在你生活裡流動，<br>期待我們很快再見。</p>
+                <div class="closing-seal">願今天收到的豐盛，慢慢回到生活裡。</div>
         <div class="btn-wrap">
           <!-- 可修改區塊 2｜Google 表單連結（請把 # 換成你的表單網址） -->
           <a class="btn closing-feedback" href="https://forms.gle/KeJzVLrQ4mLW81Ny9" target="_blank" rel="noopener" data-form-link>留下今日回饋 <span class="arrow">→</span></a>
@@ -1789,7 +1856,7 @@ function syncLocks(){
     item.setAttribute('aria-disabled', open ? 'false' : 'true');
     item.classList.toggle('is-current', step === currentActivityStep);
   });
-  if(progressLabel){ progressLabel.textContent = PAGE_NAMES[currentPage] + '　·　目前到 ' + stageText(); }
+  if(progressLabel){ progressLabel.textContent = '目前流程：' + stageText(); }
   if(flowStageStatus){ flowStageStatus.textContent = '目前流程：' + stageText(); }
   if(questionStageStatus){ questionStageStatus.textContent = openRoundText(); }
 }
@@ -1800,7 +1867,7 @@ function goTo(i){
   currentPage = i;
   pages.forEach(function(p, idx){ p.classList.toggle('active', idx === i); });
   dots.forEach(function(d, idx){ d.classList.toggle('active', idx === i); });
-  if(progressLabel){ progressLabel.textContent = PAGE_NAMES[i] + '　·　目前到 ' + stageText(); }
+  if(progressLabel){ progressLabel.textContent = '目前流程：' + stageText(); }
   document.body.classList.toggle('is-home', i === 0);
   window.scrollTo({ top:0, behavior:'auto' });
   document.querySelectorAll('#page-'+i+' .fade-in').forEach(function(el){
@@ -1945,6 +2012,8 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+
+
 
 
 
