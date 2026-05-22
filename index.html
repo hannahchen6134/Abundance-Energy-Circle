@@ -920,16 +920,16 @@ body:not(.is-home) .star{ display:none; }
 
       <div class="card" style="margin-top:22px;">
         <ol class="flow">
-          <li class="flow-item anim-in" style="animation-delay:.10s"><span class="flow-num">1</span><span class="flow-name">開場，分享為何相聚</span></li>
-          <li class="flow-item anim-in" style="animation-delay:.18s"><span class="flow-num">2</span><span class="flow-name">安定下來，做豐盛交流冥想</span></li>
-          <li class="flow-item anim-in" style="animation-delay:.26s"><span class="flow-num">3</span><span class="flow-name">抽豐盛指引卡</span></li>
-          <li class="flow-item flow-link anim-in" style="animation-delay:.34s" data-round="0" role="button" tabindex="0" aria-label="第一輪豐盛交流，點進去看題目"><span class="flow-num">4</span><span class="flow-name">第一輪豐盛交流</span><span class="flow-go"><span class="flow-hint">題目</span><span class="flow-arrow">›</span></span></li>
-          <li class="flow-item flow-link anim-in" style="animation-delay:.42s" data-round="1" role="button" tabindex="0" aria-label="第二輪豐盛交流，點進去看題目"><span class="flow-num">5</span><span class="flow-name">第二輪豐盛交流</span><span class="flow-go"><span class="flow-hint">題目</span><span class="flow-arrow">›</span></span></li>
-          <li class="flow-item anim-in" style="animation-delay:.50s"><span class="flow-num">6</span><span class="flow-name">稍作休息</span></li>
-          <li class="flow-item flow-link anim-in" style="animation-delay:.58s" data-round="2" role="button" tabindex="0" aria-label="第三輪豐盛交流，點進去看題目"><span class="flow-num">7</span><span class="flow-name">第三輪豐盛交流</span><span class="flow-go"><span class="flow-hint">題目</span><span class="flow-arrow">›</span></span></li>
-          <li class="flow-item flow-link anim-in" style="animation-delay:.66s" data-page="3" role="button" tabindex="0" aria-label="沉澱與回饋，點進去書寫並填表"><span class="flow-num">8</span><span class="flow-name">沉澱與回饋</span><span class="flow-go"><span class="flow-hint">書寫</span><span class="flow-arrow">›</span></span></li>
-          <li class="flow-item anim-in" style="animation-delay:.74s"><span class="flow-num">9</span><span class="flow-name">自由分享</span></li>
-          <li class="flow-item flow-link anim-in" style="animation-delay:.82s" data-page="4" role="button" tabindex="0" aria-label="合照也感謝今日豐盛，點進去看"><span class="flow-num">10</span><span class="flow-name">合照也感謝今日豐盛</span><span class="flow-go"><span class="flow-hint">感謝</span><span class="flow-arrow">›</span></span></li>
+          <li class="flow-item anim-in" data-step="1" style="animation-delay:.10s"><span class="flow-num">1</span><span class="flow-name">開場，分享為何相聚</span></li>
+          <li class="flow-item anim-in" data-step="2" style="animation-delay:.18s"><span class="flow-num">2</span><span class="flow-name">安定下來，做豐盛交流冥想</span></li>
+          <li class="flow-item anim-in" data-step="3" style="animation-delay:.26s"><span class="flow-num">3</span><span class="flow-name">抽豐盛指引卡</span></li>
+          <li class="flow-item flow-link anim-in" data-step="4" style="animation-delay:.34s" data-round="0" role="button" tabindex="0" aria-label="第一輪豐盛交流，點進去看題目"><span class="flow-num">4</span><span class="flow-name">第一輪豐盛交流</span><span class="flow-go"><span class="flow-hint">題目</span><span class="flow-arrow">›</span></span></li>
+          <li class="flow-item flow-link anim-in" data-step="5" style="animation-delay:.42s" data-round="1" role="button" tabindex="0" aria-label="第二輪豐盛交流，點進去看題目"><span class="flow-num">5</span><span class="flow-name">第二輪豐盛交流</span><span class="flow-go"><span class="flow-hint">題目</span><span class="flow-arrow">›</span></span></li>
+          <li class="flow-item anim-in" data-step="6" style="animation-delay:.50s"><span class="flow-num">6</span><span class="flow-name">稍作休息</span></li>
+          <li class="flow-item flow-link anim-in" data-step="7" style="animation-delay:.58s" data-round="2" role="button" tabindex="0" aria-label="第三輪豐盛交流，點進去看題目"><span class="flow-num">7</span><span class="flow-name">第三輪豐盛交流</span><span class="flow-go"><span class="flow-hint">題目</span><span class="flow-arrow">›</span></span></li>
+          <li class="flow-item flow-link anim-in" data-step="8" style="animation-delay:.66s" data-page="3" role="button" tabindex="0" aria-label="沉澱與回饋，點進去書寫並填表"><span class="flow-num">8</span><span class="flow-name">沉澱與回饋</span><span class="flow-go"><span class="flow-hint">書寫</span><span class="flow-arrow">›</span></span></li>
+          <li class="flow-item anim-in" data-step="9" style="animation-delay:.74s"><span class="flow-num">9</span><span class="flow-name">自由分享</span></li>
+          <li class="flow-item flow-link anim-in" data-step="10" style="animation-delay:.82s" data-page="4" role="button" tabindex="0" aria-label="合照也感謝今日豐盛，點進去看"><span class="flow-num">10</span><span class="flow-name">合照也感謝今日豐盛</span><span class="flow-go"><span class="flow-hint">感謝</span><span class="flow-arrow">›</span></span></li>
         </ol>
       </div>
 
@@ -1135,15 +1135,9 @@ function syncLocks(){
     tab.classList.toggle('is-locked', !open);
     tab.setAttribute('aria-disabled', open ? 'false' : 'true');
   });
-  document.querySelectorAll('.flow-link[data-round]').forEach(function(item){
-    var idx = parseInt(item.getAttribute('data-round'), 10);
-    var open = canOpenRound(idx);
-    item.classList.toggle('is-locked', !open);
-    item.setAttribute('aria-disabled', open ? 'false' : 'true');
-  });
-  document.querySelectorAll('.flow-link[data-page]').forEach(function(item){
-    var target = parseInt(item.getAttribute('data-page'), 10);
-    var open = canOpenPage(target);
+  document.querySelectorAll('.flow-item[data-step]').forEach(function(item){
+    var step = parseInt(item.getAttribute('data-step'), 10);
+    var open = step <= currentActivityStep;
     item.classList.toggle('is-locked', !open);
     item.setAttribute('aria-disabled', open ? 'false' : 'true');
   });
@@ -1187,6 +1181,8 @@ document.querySelectorAll('.round-tab').forEach(function(tab){
 /* ===== 今日旅程指引：可直接點進對應頁的步驟 ===== */
 document.querySelectorAll('.flow-link').forEach(function(item){
   function activate(){
+    var step = parseInt(item.getAttribute('data-step') || '0', 10);
+    if(step && step > currentActivityStep){ showLockedMessage(); syncLocks(); return; }
     var round = item.getAttribute('data-round');
     var page  = item.getAttribute('data-page');
     if(round !== null){
@@ -1202,7 +1198,6 @@ document.querySelectorAll('.flow-link').forEach(function(item){
     if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); activate(); }
   });
 });
-
 function applyRemoteStage(value){
   var next = parseInt(value, 10);
   if(isNaN(next)) return;
@@ -1285,6 +1280,9 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+
+
+
 
 
 
