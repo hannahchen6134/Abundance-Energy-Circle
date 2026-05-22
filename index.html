@@ -1443,6 +1443,13 @@ body:not(.is-home) .star{ display:none; }
     animation:none !important;
   }
 }
+
+/* Keep decorative line art only on the home page */
+body:not(.is-home) .birds,
+body:not(.is-home) .village{
+  display:none !important;
+  opacity:0 !important;
+}
 </style>
 </head>
 <body class="is-home">
@@ -1931,6 +1938,7 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+
 
 
 
