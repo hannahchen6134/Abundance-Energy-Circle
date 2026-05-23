@@ -493,6 +493,13 @@ p + p{ margin-top:14px; }
   border-bottom:1px dashed rgba(199,154,78,.14);
 }
 .q-list li:last-child{ border-bottom:none; }
+.note-inline{
+  display:block;
+  margin-top:4px;
+  font-size:13px;
+  line-height:1.65;
+  color:var(--brown-soft);
+}
 .q-list li::before{
   content:counter(q); position:absolute; left:0; top:16px;
   width:24px; height:24px; border-radius:50%;
@@ -2029,6 +2036,67 @@ body:not(.is-home) .village{
     margin-top:20px !important;
   }
 }
+
+/* Final link button refinement: compact, delicate, not full-width cards */
+#page-4 .community-links{
+  width:min(100%, 330px) !important;
+  max-width:330px !important;
+  margin:22px auto 0 !important;
+  padding-top:16px !important;
+  gap:12px !important;
+  border-top:1px solid rgba(199,154,78,.13) !important;
+}
+#page-4 .community-link-card{
+  display:block !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+  padding:13px 18px 12px !important;
+  border-radius:999px !important;
+  text-align:center !important;
+  border:1px solid rgba(196,147,65,.24) !important;
+  background:linear-gradient(180deg, rgba(255,253,247,.88), rgba(251,244,230,.72)) !important;
+  box-shadow:0 8px 18px rgba(94,66,32,.06), inset 0 1px 0 rgba(255,255,255,.78) !important;
+}
+#page-4 .community-link-card + .community-link-card{
+  border-top:1px solid rgba(196,147,65,.24) !important;
+  background:linear-gradient(180deg, rgba(255,248,235,.92), rgba(246,232,204,.78)) !important;
+}
+#page-4 .community-link-title{
+  font-family:var(--font-serif) !important;
+  font-size:17px !important;
+  line-height:1.2 !important;
+  letter-spacing:.08em !important;
+  color:#b27a2c !important;
+  font-weight:700 !important;
+}
+#page-4 .community-link-title::after{
+  content:'  →' !important;
+  color:rgba(168,111,37,.68) !important;
+}
+#page-4 .community-link-copy{
+  display:block !important;
+  margin-top:5px !important;
+  font-size:11.5px !important;
+  line-height:1.55 !important;
+  letter-spacing:.03em !important;
+  color:rgba(112,84,54,.58) !important;
+}
+@media(hover:hover){
+  #page-4 .community-link-card:hover{
+    transform:translateY(-1px) !important;
+    border-color:rgba(190,134,47,.42) !important;
+    box-shadow:0 10px 22px rgba(94,66,32,.09), inset 0 1px 0 rgba(255,255,255,.82) !important;
+  }
+}
+@media (max-width:520px){
+  #page-4 .community-links{
+    width:min(100%, 310px) !important;
+    max-width:310px !important;
+  }
+  #page-4 .community-link-card{
+    padding:12px 16px 11px !important;
+  }
+}
 </style>
 </head>
 <body class="is-home">
@@ -2155,10 +2223,9 @@ body:not(.is-home) .village{
             <div class="panel-head"><span class="round-tag">第一輪</span><h3 class="panel-title">同色豐盛交流</h3></div>
             <p class="desc">請看名牌右上角的顏色，找到同顏色的人，<span class="nb">3–4 人一組</span>。先簡單認識彼此，舒服分享就好。</p>
             <ol class="q-list">
-              <li>你希望大家怎麼稱呼你？</li>
-              <li>今天是什麼吸引你來到這場小聚？</li>
-              <li>最近生活裡，有一件讓你覺得<span class="nb">「還不錯」</span>的小事是什麼？</li>
-              <li>聽完對方分享後，可以回應一句：「我剛剛從你身上聽見／看見的是……」</li>
+              <li>怎麼稱呼我？</li>
+              <li>我現在最投入的一件事是？<span class="note-inline">只要是你很重視的事即可，不限制有沒有收入，或是不是大眾認為的「工作」。</span></li>
+              <li>分享自己近期一個日常的豐盛。</li>
             </ol>
           </div>
           <div class="btn-wrap round-back-wrap round-back-1">
@@ -2172,10 +2239,10 @@ body:not(.is-home) .village{
             <div class="panel-head"><span class="round-tag">第二輪</span><h3 class="panel-title">豐盛指引卡交流</h3></div>
             <p class="desc">請找一位或兩位還沒聊過的人，<span class="nb">2–3 人一組</span>。帶著你的豐盛指引卡，分享它帶給你的提醒。</p>
             <ol class="q-list">
-              <li>你抽到的豐盛指引卡是什麼？</li>
-              <li>這張卡給你什麼感覺或提醒？</li>
-              <li>你最近正在練習接收哪一種豐盛？</li>
-              <li>聽完對方分享後，送給對方一句祝福或回饋。</li>
+              <li>怎麼稱呼我？</li>
+              <li>我現在最投入的一件事是？</li>
+              <li>我抽到什麼豐盛指引？讓我聯想到最近生活可呼應的一件事是？分享這件事以及想法。</li>
+              <li>「聆聽的每一人」隨喜，為分享者的分享內容開心，並讚美其分享。</li>
             </ol>
           </div>
           <div class="btn-wrap round-back-wrap round-back-2">
@@ -2189,9 +2256,10 @@ body:not(.is-home) .village{
             <div class="panel-head"><span class="round-tag">第三輪</span><h3 class="panel-title">自由流動交流</h3></div>
             <p class="desc">請找一位還沒聊過、但你有點好奇的人。可以是剛剛聽到他的分享有感，也可以只是直覺想更認識他。</p>
             <ol class="q-list">
-              <li>今天到目前為止，哪一句話最留在你心裡？</li>
-              <li>你從對方身上看見了哪一種豐盛？</li>
-              <li>你想把今天哪一個提醒帶回生活裡？</li>
+              <li>怎麼稱呼我？</li>
+              <li>我現在最投入的一件事是？</li>
+              <li>我抽到什麼豐盛指引？讓我聯想到最近生活可呼應的一件事是？分享這件事以及想法。</li>
+              <li>「聆聽的人」隨喜，為分享者的分享內容開心，並讚美其分享。</li>
             </ol>
           </div>
           <div class="btn-wrap round-next-wrap">
@@ -2560,6 +2628,9 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+
+
+
 
 
 
