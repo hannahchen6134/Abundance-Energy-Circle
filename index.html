@@ -1654,6 +1654,372 @@ body:not(.is-home) .village{
   .feedback-title{ font-size:18px; }
   .feedback-copy{ font-size:13.5px; }
 }
+
+/* Visual hierarchy refinement: reduce box density and make feedback the primary action */
+#page-1 .stage-status{
+  display:inline-block;
+  margin-top:18px;
+  padding:7px 15px;
+  border-radius:999px;
+  background:rgba(255,250,241,.54);
+  border:1px solid rgba(215,183,124,.22);
+  box-shadow:none;
+  color:rgba(126,93,52,.76);
+}
+#page-1 .flow-guidance{
+  max-width:430px;
+  margin:18px auto 12px;
+  padding:2px 4px 0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+}
+#page-1 .flow-guidance-row{
+  grid-template-columns:72px minmax(0,1fr);
+  padding:7px 0;
+  border-bottom:1px solid rgba(199,154,78,.13);
+}
+#page-1 .flow-guidance-label{
+  font-size:11.5px;
+  color:rgba(143,112,72,.56);
+}
+#page-1 .flow-guidance-text{
+  font-size:15.5px;
+  color:rgba(66,45,30,.88);
+  font-weight:600;
+}
+#page-1 .flow-guidance-row:first-child .flow-guidance-text{
+  font-size:17px;
+  color:var(--brown-deep);
+}
+
+.feedback-invite .btn.closing-feedback,
+#page-4 .feedback-invite .btn.closing-feedback{
+  color:#fffdf8 !important;
+  background:linear-gradient(110deg,#d6a64f,#bd8734,#a86f25,#d9ad59) !important;
+  background-size:240% 100% !important;
+  border:0 !important;
+  box-shadow:0 12px 30px rgba(176,127,51,.30), 0 0 0 1px rgba(255,255,255,.28) inset !important;
+  width:min(100%, 286px) !important;
+  max-width:286px !important;
+  min-height:52px;
+  padding:14px 22px !important;
+  font-size:15.5px !important;
+  letter-spacing:.08em;
+}
+#page-4 .feedback-invite{
+  margin-top:30px !important;
+  padding:18px 0 0 !important;
+  max-width:390px;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+#page-4 .feedback-kicker{
+  color:rgba(176,127,51,.68);
+}
+#page-4 .feedback-title{
+  font-size:21px;
+  color:var(--brown-deep);
+}
+#page-4 .feedback-copy{
+  max-width:320px;
+  color:rgba(96,70,45,.74);
+}
+#page-4 .community-links{
+  max-width:430px;
+  margin:26px auto 0;
+  padding-top:18px;
+  display:grid;
+  gap:0;
+  border-top:1px solid rgba(199,154,78,.16);
+}
+#page-4 .community-link-card{
+  padding:13px 4px 14px;
+  border:0;
+  border-radius:0;
+  background:transparent;
+  box-shadow:none;
+  text-align:center;
+}
+#page-4 .community-link-card + .community-link-card{
+  border-top:1px solid rgba(199,154,78,.11);
+}
+#page-4 .community-link-title{
+  font-size:15.5px;
+  color:#ad7a2e;
+}
+#page-4 .community-link-title::after{
+  content:'  →';
+  font-family:var(--font-sans);
+  color:rgba(176,127,51,.62);
+}
+#page-4 .community-link-copy{
+  max-width:330px;
+  margin:5px auto 0;
+  color:rgba(92,72,50,.64);
+}
+@media(hover:hover){
+  #page-4 .community-link-card:hover{
+    transform:translateY(-1px);
+    box-shadow:none;
+  }
+}
+@media (max-width:520px){
+  #page-1 .flow-guidance{ margin-top:16px; padding-left:2px; padding-right:2px; }
+  #page-1 .flow-guidance-row{ grid-template-columns:64px minmax(0,1fr); }
+  #page-1 .flow-guidance-text{ font-size:14.5px; line-height:1.75; }
+  #page-1 .flow-guidance-row:first-child .flow-guidance-text{ font-size:16px; }
+  #page-4 .feedback-title{ font-size:19px; }
+  #page-4 .community-links{ margin-top:22px; }
+}
+
+/* Make the live guidance feel like a delicate note, not another card */
+#page-1 .flow-guidance{
+  max-width:350px !important;
+  margin:14px auto 8px !important;
+  padding:0 2px !important;
+}
+#page-1 .flow-guidance-row{
+  grid-template-columns:58px minmax(0,1fr) !important;
+  gap:8px !important;
+  padding:5px 0 !important;
+  border-bottom-color:rgba(199,154,78,.09) !important;
+}
+#page-1 .flow-guidance-label{
+  font-size:10.5px !important;
+  letter-spacing:.07em !important;
+  color:rgba(143,112,72,.46) !important;
+}
+#page-1 .flow-guidance-text{
+  font-size:13.5px !important;
+  line-height:1.58 !important;
+  font-weight:500 !important;
+  color:rgba(66,45,30,.72) !important;
+}
+#page-1 .flow-guidance-row:first-child .flow-guidance-text{
+  font-size:14.5px !important;
+  color:rgba(66,45,30,.86) !important;
+  font-weight:600 !important;
+}
+@media (max-width:520px){
+  #page-1 .flow-guidance{ max-width:315px !important; margin-top:12px !important; }
+  #page-1 .flow-guidance-row{ grid-template-columns:54px minmax(0,1fr) !important; gap:7px !important; }
+  #page-1 .flow-guidance-label{ font-size:10px !important; }
+  #page-1 .flow-guidance-text{ font-size:13px !important; line-height:1.55 !important; }
+  #page-1 .flow-guidance-row:first-child .flow-guidance-text{ font-size:13.8px !important; }
+}
+
+/* Final readability and hierarchy polish */
+.progress-label{
+  font-family:var(--font-sans) !important;
+  font-size:10.5px !important;
+  letter-spacing:.055em !important;
+  color:rgba(118,94,66,.58) !important;
+  line-height:1.35 !important;
+}
+.page:not(#page-0) .card{
+  border-color:rgba(199,154,78,.16) !important;
+  background:rgba(255,253,248,.84) !important;
+  box-shadow:0 12px 32px rgba(98,70,36,.08), 0 1px 0 rgba(255,255,255,.56) inset !important;
+}
+#page-1 h2,
+#page-2 h2,
+#page-3 h2,
+#page-4 h2{
+  font-size:clamp(24px, 6.4vw, 31px) !important;
+  line-height:1.45 !important;
+  letter-spacing:.015em !important;
+  margin-bottom:12px !important;
+}
+#page-1 .muted.center,
+#page-2 .muted.center,
+#page-3 .muted.center{
+  color:rgba(102,78,52,.62) !important;
+  line-height:1.95 !important;
+}
+#page-1 .card{
+  margin-top:18px !important;
+  padding-top:24px !important;
+  padding-bottom:24px !important;
+}
+#page-1 .flow-list{
+  gap:0 !important;
+}
+#page-1 .flow-item{
+  padding-top:10px !important;
+  padding-bottom:10px !important;
+}
+#page-1 .flow-name{
+  font-size:15.8px !important;
+  line-height:1.56 !important;
+  color:rgba(62,44,30,.86) !important;
+}
+#page-1 .flow-num{
+  box-shadow:0 8px 18px rgba(172,125,50,.10) !important;
+}
+#page-2 .round-tabs{
+  margin-top:18px !important;
+  margin-bottom:18px !important;
+}
+#page-2 .card{
+  padding-top:24px !important;
+  padding-bottom:24px !important;
+}
+#page-2 .panel-title{
+  font-size:18px !important;
+  line-height:1.55 !important;
+  color:rgba(58,40,28,.92) !important;
+}
+#page-2 .desc{
+  font-size:13.5px !important;
+  line-height:1.9 !important;
+  color:rgba(102,78,52,.64) !important;
+  margin-bottom:16px !important;
+}
+#page-2 .q-list li{
+  font-size:15.8px !important;
+  line-height:1.82 !important;
+  padding-top:12px !important;
+  padding-bottom:12px !important;
+  color:rgba(63,45,30,.88) !important;
+}
+#page-2 .q-list li::before{
+  color:rgba(183,132,45,.88) !important;
+  border-color:rgba(199,154,78,.38) !important;
+  background:rgba(255,252,245,.72) !important;
+}
+#page-3 .write-hint{
+  background:rgba(255,250,241,.58) !important;
+  border-color:rgba(199,154,78,.18) !important;
+  box-shadow:none !important;
+}
+#page-3 .feedback-invite,
+#page-4 .feedback-invite{
+  border-top-color:rgba(199,154,78,.14) !important;
+}
+#page-4 .card{
+  box-shadow:0 14px 36px rgba(98,70,36,.085), 0 1px 0 rgba(255,255,255,.60) inset !important;
+}
+#page-4 .closing-seal{
+  font-size:17px !important;
+  line-height:2 !important;
+  color:rgba(160,119,49,.82) !important;
+}
+#page-4 .community-links{
+  gap:12px !important;
+}
+#page-4 .community-link-card{
+  border-radius:20px !important;
+  padding:18px 16px !important;
+  background:rgba(255,253,248,.66) !important;
+  border-color:rgba(199,154,78,.14) !important;
+  box-shadow:0 8px 24px rgba(98,70,36,.055) !important;
+}
+#page-4 .community-link-title{
+  font-size:18px !important;
+  letter-spacing:.06em !important;
+}
+#page-4 .community-link-copy{
+  font-size:13px !important;
+  line-height:1.85 !important;
+  color:rgba(102,78,52,.58) !important;
+}
+@media (max-width:520px){
+  .progress-label{
+    font-size:10px !important;
+    max-width:86vw !important;
+    margin-left:auto !important;
+    margin-right:auto !important;
+  }
+  .page:not(#page-0) .card{
+    border-radius:20px !important;
+    padding-left:17px !important;
+    padding-right:17px !important;
+    box-shadow:0 10px 26px rgba(98,70,36,.075), 0 1px 0 rgba(255,255,255,.55) inset !important;
+  }
+  #page-1 h2,
+  #page-2 h2,
+  #page-3 h2,
+  #page-4 h2{
+    font-size:clamp(23px, 7.1vw, 29px) !important;
+    line-height:1.48 !important;
+  }
+  #page-1 .muted.center,
+  #page-2 .muted.center,
+  #page-3 .muted.center{
+    font-size:14px !important;
+    line-height:1.9 !important;
+  }
+  #page-1 .card{
+    margin-top:16px !important;
+    padding-top:22px !important;
+    padding-bottom:22px !important;
+  }
+  #page-1 .flow-item{
+    padding-top:9px !important;
+    padding-bottom:9px !important;
+  }
+  #page-1 .flow-name{
+    font-size:15px !important;
+    line-height:1.55 !important;
+  }
+  #page-1 .flow-hint{
+    font-size:10.5px !important;
+    padding:2px 7px !important;
+  }
+  #page-2 .round-tab{
+    min-height:38px !important;
+    font-size:13px !important;
+  }
+  #page-2 .panel-title{
+    font-size:17px !important;
+  }
+  #page-2 .desc{
+    font-size:13px !important;
+    line-height:1.86 !important;
+  }
+  #page-2 .q-list li{
+    font-size:15px !important;
+    line-height:1.78 !important;
+    padding-left:32px !important;
+  }
+  #page-4 .community-link-card{
+    padding:16px 14px !important;
+  }
+}
+
+/* Flow page simplification: keep the guide calm and less fragmented */
+#page-1 .flow-guidance{
+  display:none !important;
+}
+#page-1 .stage-status{
+  margin-top:16px !important;
+  margin-bottom:6px !important;
+  padding:7px 16px !important;
+  font-size:13px !important;
+  letter-spacing:.04em !important;
+  color:rgba(147,105,39,.82) !important;
+  background:rgba(255,253,248,.72) !important;
+  border-color:rgba(199,154,78,.18) !important;
+  box-shadow:0 8px 22px rgba(98,70,36,.055) !important;
+}
+#page-1 .card{
+  margin-top:22px !important;
+}
+@media (max-width:520px){
+  #page-1 .stage-status{
+    max-width:260px !important;
+    font-size:12.5px !important;
+    line-height:1.55 !important;
+    white-space:normal !important;
+  }
+  #page-1 .card{
+    margin-top:20px !important;
+  }
+}
 </style>
 </head>
 <body class="is-home">
@@ -1730,7 +2096,7 @@ body:not(.is-home) .village{
         <span class="eyebrow">Today</span>
         <h2>今日旅程指引</h2>
         <div class="divider"></div>
-                <p class="muted center">現在不用急著準備答案。<br>跟著現場引導走就好。</p>
+                <p class="muted center">跟著現場引導走就好。</p>
         <div class="stage-status" id="flowStageStatus">目前流程：讀取中</div>
         <div class="flow-guidance" aria-label="今日流程導航">
           <div class="flow-guidance-row"><span class="flow-guidance-label">正在做</span><span class="flow-guidance-text" id="flowNowText">讀取中</span></div>
@@ -1896,7 +2262,8 @@ body:not(.is-home) .village{
             <span class="community-link-title">加入官方 LINE</span>
             <span class="community-link-copy">之後的活動通知與本次活動交流資訊，會優先在這裡分享給你。</span>
           </a>
-        </div>      <!-- 可修改區塊 4｜頁尾署名 -->
+        </div>
+      <!-- 可修改區塊 4｜頁尾署名 -->
       <p class="foot">
         初星群 Starry Dawn Circle<br>
         謝謝你一起讓豐盛流動。
@@ -2185,6 +2552,10 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+
+
+
+
 
 
 
