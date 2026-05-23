@@ -358,6 +358,38 @@ p + p{ margin-top:14px; }
 .village-btn:active{ transform:translateY(0); }
 
 /* ========== 今日流程（旅程時間軸，只列步驟名稱，不破梗） ========== */
+.flow-guidance{
+  margin:18px auto 20px;
+  padding:14px 16px;
+  border-radius:18px;
+  background:rgba(255,250,241,.70);
+  border:1px solid rgba(215,183,124,.32);
+  box-shadow:0 10px 28px rgba(128,96,45,.08);
+  text-align:left;
+}
+.flow-guidance-row{
+  display:grid;
+  grid-template-columns:86px minmax(0,1fr);
+  gap:10px;
+  align-items:start;
+  padding:8px 0;
+  border-bottom:1px solid rgba(219,194,149,.24);
+}
+.flow-guidance-row:last-child{ border-bottom:0; }
+.flow-guidance-label{
+  font-family:var(--font-sans);
+  font-size:12px;
+  color:rgba(143,112,72,.72);
+  letter-spacing:.08em;
+  white-space:nowrap;
+}
+.flow-guidance-text{
+  font-family:var(--font-serif);
+  color:var(--brown-deep);
+  font-size:15px;
+  line-height:1.65;
+  font-weight:600;
+}
 .flow{ list-style:none; position:relative; padding:8px 4px; }
 .flow::before{
   content:''; position:absolute; left:24px; top:26px; bottom:26px; width:1.5px;
@@ -563,6 +595,9 @@ p + p{ margin-top:14px; }
   .flow::before{ left:20px; }
   .flow-item{ align-items:flex-start; gap:12px; padding:12px 2px; }
   .flow-num{ width:32px; height:32px; font-size:14px; }
+  .flow-guidance{ padding:12px 14px; margin:16px auto 18px; }
+  .flow-guidance-row{ grid-template-columns:76px minmax(0,1fr); gap:8px; }
+  .flow-guidance-text{ font-size:14.5px; }
   .flow-name{ flex:1 1 auto; min-width:0; font-size:15.5px; line-height:1.65; }
   .flow-go{ flex:0 0 auto; padding-left:4px; margin-top:2px; }
   .flow-hint{ padding:2px 7px; font-size:11px; }
@@ -1523,6 +1558,102 @@ body:not(.is-home) .village{
     transform:none;
   }
 }
+
+/* Feedback form guidance: make the final invitation easier to notice */
+.feedback-invite{
+  margin:24px auto 0;
+  padding:22px 20px 20px;
+  max-width:430px;
+  text-align:center;
+  border-radius:22px;
+  border:1px solid rgba(199,154,78,.28);
+  background:linear-gradient(180deg, rgba(255,252,246,.92), rgba(255,246,228,.78));
+  box-shadow:0 14px 34px rgba(112,80,42,.10), 0 0 0 1px rgba(255,255,255,.46) inset;
+}
+.feedback-kicker{
+  display:inline-block;
+  margin-bottom:9px;
+  font-size:12px;
+  letter-spacing:.16em;
+  color:rgba(176,127,51,.82);
+  font-weight:700;
+}
+.feedback-title{
+  margin:0 0 9px;
+  font-family:var(--font-serif);
+  font-size:20px;
+  line-height:1.55;
+  color:var(--brown-deep);
+  font-weight:700;
+}
+.feedback-copy{
+  margin:0 auto 17px;
+  max-width:330px;
+  font-size:14px;
+  line-height:1.9;
+  color:rgba(102,78,52,.82);
+}
+.community-links{
+  margin:22px auto 0;
+  display:grid;
+  gap:12px;
+}
+.community-link-card{
+  display:block;
+  padding:16px 16px 15px;
+  border-radius:18px;
+  text-decoration:none;
+  color:var(--brown-deep);
+  background:rgba(255,250,241,.72);
+  border:1px solid rgba(215,183,124,.34);
+  box-shadow:0 12px 28px rgba(112,80,42,.08);
+  transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+}
+.community-link-card.is-disabled{
+  opacity:.58;
+  pointer-events:none;
+}
+.community-link-title{
+  display:block;
+  font-family:var(--font-serif);
+  font-size:16px;
+  font-weight:700;
+  letter-spacing:.06em;
+  color:var(--gold-deep);
+  line-height:1.5;
+}
+.community-link-copy{
+  display:block;
+  margin-top:5px;
+  font-size:12.8px;
+  line-height:1.75;
+  color:rgba(102,78,52,.78);
+  letter-spacing:.03em;
+}
+@media(hover:hover){
+  .community-link-card:hover{ transform:translateY(-2px); border-color:rgba(199,154,78,.62); box-shadow:0 16px 34px rgba(112,80,42,.12); }
+}
+.feedback-invite .btn{
+  width:min(100%, 300px);
+}
+.feedback-note{
+  margin-top:11px;
+  font-size:12.5px;
+  line-height:1.75;
+  color:rgba(143,100,40,.68);
+}
+#page-4 .feedback-invite{
+  margin-top:24px;
+  background:linear-gradient(180deg, rgba(255,250,240,.84), rgba(255,244,222,.68));
+}
+@media (max-width:520px){
+  .feedback-invite{
+    padding:20px 16px 18px;
+    border-radius:18px;
+  }
+  .feedback-title{ font-size:18px; }
+  .feedback-copy{ font-size:13.5px; }
+}
 </style>
 </head>
 <body class="is-home">
@@ -1581,14 +1712,10 @@ body:not(.is-home) .village{
         <span class="eyebrow eyebrow-script">Abundance Energy Circle</span>
         <!-- 可修改區塊 3｜活動名稱 -->
         <h1>豐盛能量交流小聚</h1>
-        <p class="subtitle">越分享，越豐盛</p>
+        <p class="subtitle">一場互相支持、豐盛流動加倍的午後聚會</p>
         <div class="divider"></div>
-        <p class="lead">願今天的交流，<br>讓你看見自己已經擁有的豐盛，<br>也讓支持在人與人之間自然流動。</p>
-        <p class="use-hint">這是今天的活動引導，<br>可隨時點開查看流程與題目。</p>
         <div class="btn-wrap">
-          <button class="btn" data-go="1">開啟今日旅程 <span class="arrow">→</span></button>
-          <!-- 可修改區塊 5｜小村莊社群連結 -->
-          <div><a class="village-btn" href="https://reurl.cc/k85pV3" target="_blank" rel="noopener">加入我們溫暖的小村莊 <span class="arrow">→</span></a></div>
+          <button class="btn" data-go="1">進入今日小聚 <span class="arrow">→</span></button>
         </div>
       </div>
       <!-- 可修改區塊 4｜頁尾署名 -->
@@ -1603,21 +1730,26 @@ body:not(.is-home) .village{
         <span class="eyebrow">Today</span>
         <h2>今日旅程指引</h2>
         <div class="divider"></div>
-        <p class="muted center">流程由主持人現場引導，跟著走就好。<br>有箭頭的步驟，可以點進去看更多。</p>
+                <p class="muted center">現在不用急著準備答案。<br>跟著現場引導走就好。</p>
         <div class="stage-status" id="flowStageStatus">目前流程：讀取中</div>
+        <div class="flow-guidance" aria-label="今日流程導航">
+          <div class="flow-guidance-row"><span class="flow-guidance-label">正在做</span><span class="flow-guidance-text" id="flowNowText">讀取中</span></div>
+          <div class="flow-guidance-row"><span class="flow-guidance-label">等一下</span><span class="flow-guidance-text" id="flowNextText">讀取中</span></div>
+          <div class="flow-guidance-row"><span class="flow-guidance-label">你只需要</span><span class="flow-guidance-text" id="flowOnlyText">放鬆跟著現場引導</span></div>
+        </div>
       </div>
 
       <div class="card" style="margin-top:22px;">
         <ol class="flow">
-          <li class="flow-item anim-in" data-step="1" style="animation-delay:.10s"><span class="flow-num">1</span><span class="flow-name">開場，分享為何相聚</span></li>
-          <li class="flow-item anim-in" data-step="2" style="animation-delay:.18s"><span class="flow-num">2</span><span class="flow-name">安定下來，做豐盛交流冥想</span></li>
+          <li class="flow-item anim-in" data-step="1" style="animation-delay:.10s"><span class="flow-num">1</span><span class="flow-name">為什麼我們今天要相聚</span></li>
+          <li class="flow-item anim-in" data-step="2" style="animation-delay:.18s"><span class="flow-num">2</span><span class="flow-name">安定下來，進入豐盛冥想</span></li>
           <li class="flow-item anim-in" data-step="3" style="animation-delay:.26s"><span class="flow-num">3</span><span class="flow-name">抽豐盛指引卡</span></li>
           <li class="flow-item flow-link anim-in" data-step="4" style="animation-delay:.34s" data-round="0" role="button" tabindex="0" aria-label="第一輪豐盛交流，點進去看題目"><span class="flow-num">4</span><span class="flow-name">第一輪豐盛交流</span><span class="flow-go"><span class="flow-hint">題目</span><span class="flow-arrow">›</span></span></li>
           <li class="flow-item flow-link anim-in" data-step="5" style="animation-delay:.42s" data-round="1" role="button" tabindex="0" aria-label="第二輪豐盛交流，點進去看題目"><span class="flow-num">5</span><span class="flow-name">第二輪豐盛交流</span><span class="flow-go"><span class="flow-hint">題目</span><span class="flow-arrow">›</span></span></li>
           <li class="flow-item anim-in" data-step="6" style="animation-delay:.50s"><span class="flow-num">6</span><span class="flow-name">稍作休息</span></li>
           <li class="flow-item flow-link anim-in" data-step="7" style="animation-delay:.58s" data-round="2" role="button" tabindex="0" aria-label="第三輪豐盛交流，點進去看題目"><span class="flow-num">7</span><span class="flow-name">第三輪豐盛交流</span><span class="flow-go"><span class="flow-hint">題目</span><span class="flow-arrow">›</span></span></li>
-          <li class="flow-item flow-link anim-in" data-step="8" style="animation-delay:.66s" data-page="3" role="button" tabindex="0" aria-label="沉澱與回饋，點進去書寫並填表"><span class="flow-num">8</span><span class="flow-name">沉澱與回饋</span><span class="flow-go"><span class="flow-hint">書寫</span><span class="flow-arrow">›</span></span></li>
-          <li class="flow-item anim-in" data-step="9" style="animation-delay:.74s"><span class="flow-num">9</span><span class="flow-name">自由分享</span></li>
+          <li class="flow-item flow-link anim-in" data-step="8" style="animation-delay:.66s" data-page="3" role="button" tabindex="0" aria-label="沉澱書寫與回饋，點進去書寫並填寫今日回饋"><span class="flow-num">8</span><span class="flow-name">沉澱書寫與回饋</span><span class="flow-go"><span class="flow-hint">回饋</span><span class="flow-arrow">›</span></span></li>
+          <li class="flow-item anim-in" data-step="9" style="animation-delay:.74s"><span class="flow-num">9</span><span class="flow-name">自由交流與連結</span></li>
           <li class="flow-item flow-link anim-in" data-step="10" style="animation-delay:.82s" data-page="4" role="button" tabindex="0" aria-label="合照也感謝今日豐盛，點進去看"><span class="flow-num">10</span><span class="flow-name">合照也感謝今日豐盛</span><span class="flow-go"><span class="flow-hint">感謝</span><span class="flow-arrow">›</span></span></li>
         </ol>
       </div>
@@ -1636,7 +1768,7 @@ body:not(.is-home) .village{
         <span class="eyebrow">Connect</span>
         <h2>今日豐盛交流題目</h2>
         <div class="divider"></div>
-        <p class="muted center">點選輪次，只看當輪的題目。<br>不用急著看完全部，跟著現場引導走就好。</p>
+        <p class="muted center">題目會依照現場流程逐輪開放。<br>請停在目前輪次，跟著主持人引導慢慢聊。</p>
         <div class="stage-status" id="questionStageStatus">目前開放：讀取中</div>
       </div>
 
@@ -1651,12 +1783,12 @@ body:not(.is-home) .village{
         <div class="round-panel active" data-panel="0">
           <div class="card">
             <div class="panel-head"><span class="round-tag">第一輪</span><h3 class="panel-title">同色豐盛交流</h3></div>
-            <p class="desc">請看名牌右上角的顏色，找到同顏色的人，<span class="nb">3–4 人一組</span>一起聊，輕鬆認識就好。</p>
+            <p class="desc">請看名牌右上角的顏色，找到同顏色的人，<span class="nb">3–4 人一組</span>。先簡單認識彼此，舒服分享就好。</p>
             <ol class="q-list">
-              <li>你怎麼稱呼自己？</li>
-              <li>今天為什麼想來這場活動？</li>
+              <li>你希望大家怎麼稱呼你？</li>
+              <li>今天是什麼吸引你來到這場小聚？</li>
               <li>最近生活裡，有一件讓你覺得<span class="nb">「還不錯」</span>的小事是什麼？</li>
-              <li>聽完對方分享後，可以說一句：「我剛剛從你身上聽見／看見的是……」</li>
+              <li>聽完對方分享後，可以回應一句：「我剛剛從你身上聽見／看見的是……」</li>
             </ol>
           </div>
           <div class="btn-wrap round-back-wrap round-back-1">
@@ -1668,12 +1800,12 @@ body:not(.is-home) .village{
         <div class="round-panel" data-panel="1">
           <div class="card">
             <div class="panel-head"><span class="round-tag">第二輪</span><h3 class="panel-title">豐盛指引卡交流</h3></div>
-            <p class="desc">請找一位或兩位還沒聊過的人，<span class="nb">2–3 人一組</span>。帶著你的豐盛指引卡，分享它讓你想到的事。</p>
+            <p class="desc">請找一位或兩位還沒聊過的人，<span class="nb">2–3 人一組</span>。帶著你的豐盛指引卡，分享它帶給你的提醒。</p>
             <ol class="q-list">
               <li>你抽到的豐盛指引卡是什麼？</li>
-              <li>這張卡讓你想到什麼？</li>
-              <li>你最近正在練習接收什麼豐盛？</li>
-              <li>聽完對方分享後，給一句祝福或回饋。</li>
+              <li>這張卡給你什麼感覺或提醒？</li>
+              <li>你最近正在練習接收哪一種豐盛？</li>
+              <li>聽完對方分享後，送給對方一句祝福或回饋。</li>
             </ol>
           </div>
           <div class="btn-wrap round-back-wrap round-back-2">
@@ -1685,15 +1817,15 @@ body:not(.is-home) .village{
         <div class="round-panel" data-panel="2">
           <div class="card">
             <div class="panel-head"><span class="round-tag">第三輪</span><h3 class="panel-title">自由流動交流</h3></div>
-            <p class="desc">請找一位還沒聊過，但你有點好奇的人。可以是剛剛聽到他的分享有感，也可以只是直覺想認識他。</p>
+            <p class="desc">請找一位還沒聊過、但你有點好奇的人。可以是剛剛聽到他的分享有感，也可以只是直覺想更認識他。</p>
             <ol class="q-list">
-              <li>今天到目前為止，你最有感的一句話是什麼？</li>
-              <li>你從對方身上看見了什麼豐盛？</li>
-              <li>你想把今天哪個提醒帶回生活練習？</li>
+              <li>今天到目前為止，哪一句話最留在你心裡？</li>
+              <li>你從對方身上看見了哪一種豐盛？</li>
+              <li>你想把今天哪一個提醒帶回生活裡？</li>
             </ol>
           </div>
           <div class="btn-wrap round-next-wrap">
-            <button class="btn" data-go="3" data-label-open="進入最後沉澱書寫" data-label-locked="沉澱書寫尚未開放">進入最後沉澱書寫 <span class="arrow">→</span></button>
+            <button class="btn" data-go="3" data-label-open="進入沉澱書寫與回饋" data-label-locked="沉澱與回饋尚未開放">進入沉澱書寫與回饋 <span class="arrow">→</span></button>
           </div>
           <div class="btn-wrap round-back-wrap round-back-3">
             <button class="btn-link" data-go="1">← 回今日流程</button>
@@ -1707,25 +1839,29 @@ body:not(.is-home) .village{
     <div class="inner">
       <div class="center fade-in">
         <span class="eyebrow">Reflect</span>
-        <h2>今天我收到的豐盛提醒</h2>
+        <h2>把今天的豐盛收回心裡</h2>
         <div class="divider"></div>
       </div>
 
       <div class="card fade-in" style="margin-top:22px;">
         <p class="write-hint">請寫在豐盛指引卡右邊的空白處</p>
-        <p>請安靜想一想。</p>
+        <p>先安靜停一下，讓剛剛的對話慢慢落下來。</p>
         <p>今天的交流裡，有沒有哪一句話、哪一個人、哪一張卡，讓你心裡有一點被觸動？</p>
         <div class="divider"></div>
         <div class="write-block anim-in" style="animation-delay:.15s">
-          <span class="label">今天我收到的豐盛提醒是：</span>
+          <span class="label">我想帶回生活的豐盛提醒是：</span>
           <div class="write-line"></div>
           <div class="write-line"></div>
         </div>
       </div>
 
-      <div class="btn-wrap">
+      <div class="feedback-invite fade-in">
+        <span class="feedback-kicker">最後一小步</span>
+        <h3 class="feedback-title">留下今天的回饋與收穫</h3>
+        <p class="feedback-copy">你的感受會幫助初星群把下一次小聚準備得更貼近大家，也讓今天的豐盛被好好收起來。</p>
         <!-- 可修改區塊 2｜Google 表單連結（請把 # 換成你的表單網址） -->
-        <a class="btn closing-feedback" href="https://forms.gle/KeJzVLrQ4mLW81Ny9" target="_blank" rel="noopener" data-form-link>留下今日回饋 <span class="arrow">→</span></a>
+        <a class="btn closing-feedback" href="https://docs.google.com/forms/d/e/1FAIpQLSf6U6jmv1ByRUIaNqxL2ygm63Y0xGIx_OQHhFc9qS4i_TUSyA/viewform?usp=sharing&ouid=104920475141023148356" target="_blank" rel="noopener noreferrer" data-form-link>填寫今日回饋表單 <span class="arrow">→</span></a>
+        <div class="feedback-note">大約 2–3 分鐘，填完就可以回到現場自由分享。</div>
         <div><button class="btn-link" data-go="2">← 回交流題目</button></div>
       </div>
     </div>
@@ -1740,15 +1876,27 @@ body:not(.is-home) .village{
         <div class="divider"></div>
         <p>謝謝你今天來到這裡，<br>真誠分享，也好好聽見了彼此。</p>
         <p>活動後也歡迎留下來，<br>自由聊聊、拍照、交換聯絡方式。</p>
-        <p>為了把更多驚喜留給下次相聚，<br>這個小網站今天結束後就會悄悄關閉。</p>
+        <p>為了把一些驚喜留給下次相聚，<br>這個小網站也會在今天之後悄悄收起。</p>
         <p>願這份豐盛，繼續在你生活裡流動，<br>期待我們很快再見。</p>
                 <div class="closing-seal">願今天收到的豐盛，慢慢回到生活裡。</div>
-        <div class="btn-wrap">
+        <div class="feedback-invite">
+          <span class="feedback-kicker">離開前的小邀請</span>
+          <h3 class="feedback-title">如果還沒填，歡迎留下今日回饋</h3>
+          <p class="feedback-copy">不用寫得很完整，只要留下此刻最真實的一點感受，就已經很珍貴。</p>
           <!-- 可修改區塊 2｜Google 表單連結（請把 # 換成你的表單網址） -->
-          <a class="btn closing-feedback" href="https://forms.gle/KeJzVLrQ4mLW81Ny9" target="_blank" rel="noopener" data-form-link>留下今日回饋 <span class="arrow">→</span></a>
+          <a class="btn closing-feedback" href="https://docs.google.com/forms/d/e/1FAIpQLSf6U6jmv1ByRUIaNqxL2ygm63Y0xGIx_OQHhFc9qS4i_TUSyA/viewform?usp=sharing&ouid=104920475141023148356" target="_blank" rel="noopener noreferrer" data-form-link>填寫今日回饋表單 <span class="arrow">→</span></a>
         </div>
       </div>
-      <!-- 可修改區塊 4｜頁尾署名 -->
+        <div class="community-links" aria-label="活動後連結">
+          <a class="community-link-card" href="https://reurl.cc/k85pV3" target="_blank" rel="noopener noreferrer">
+            <span class="community-link-title">加入初星群</span>
+            <span class="community-link-copy">讓今天的豐盛連結，在活動後繼續流動。</span>
+          </a>
+          <a class="community-link-card" href="https://line.me/R/ti/p/@455ojikt" target="_blank" rel="noopener noreferrer" data-line-link>
+            <span class="community-link-title">加入官方 LINE</span>
+            <span class="community-link-copy">之後的活動通知與本次活動交流資訊，會優先在這裡分享給你。</span>
+          </a>
+        </div>      <!-- 可修改區塊 4｜頁尾署名 -->
       <p class="foot">
         初星群 Starry Dawn Circle<br>
         謝謝你一起讓豐盛流動。
@@ -1765,8 +1913,8 @@ body:not(.is-home) .village{
    1. 建一張 Sheet，在 B1 輸入目前活動步驟數字 1–10。
    2. 發佈到網路，取得 CSV 連結，貼到 CONTROL_SHEET_CSV_URL。
    活動步驟：
-   1 抵達、拿名牌 / 2 開場與冥想 / 3 抽豐盛指引卡 / 4 第一輪豐盛交流 / 5 第二輪豐盛交流
-   6 稍作休息 / 7 第三輪豐盛交流 / 8 沉澱與回饋 / 9 自由分享 / 10 合照也感謝今日豐盛
+   1 為什麼我們今天要相聚 / 2 安定下來，進入豐盛冥想 / 3 抽豐盛指引卡 / 4 第一輪豐盛交流 / 5 第二輪豐盛交流
+   6 稍作休息 / 7 第三輪豐盛交流 / 8 沉澱書寫與回饋 / 9 自由交流與連結 / 10 合照也感謝今日豐盛
    沒填連結時，網站維持全開，方便本機預覽。
 */
 var CONTROL_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRnEFNaVxbNitvsaq77GSmwYkA500X3Q75jPMiMi9IDEDX_GQrvpgpJ2dZCym25BR7DM8LEC7XULoVA/pub?gid=1324438231&single=true&output=csv';
@@ -1777,14 +1925,18 @@ var currentActivityStep = CONTROL_SHEET_CSV_URL ? 1 : 10;
 /* ===== 頁面切換 ===== */
 var pages = document.querySelectorAll('.page');
 var dots  = document.querySelectorAll('.dot');
-var PAGE_NAMES = ['首頁', '今日旅程指引', '交流題目', '最後沉澱', '感謝你帶來的豐盛'];
-var ACTIVITY_STEP_NAMES = ['', '抵達、拿名牌', '開場與冥想', '抽豐盛指引卡', '第一輪豐盛交流', '第二輪豐盛交流', '稍作休息', '第三輪豐盛交流', '沉澱與回饋', '自由分享', '合照也感謝今日豐盛'];
+var PAGE_NAMES = ['首頁', '今日旅程指引', '交流題目', '沉澱與回饋', '感謝你帶來的豐盛'];
+var ACTIVITY_STEP_NAMES = ['', '為什麼我們今天要相聚', '安定下來，進入豐盛冥想', '抽豐盛指引卡', '第一輪豐盛交流', '第二輪豐盛交流', '稍作休息', '第三輪豐盛交流', '沉澱書寫與回饋', '自由交流與連結', '合照也感謝今日豐盛'];
 var progressLabel = document.getElementById('progressLabel');
 var flowStageStatus = document.getElementById('flowStageStatus');
 var questionStageStatus = document.getElementById('questionStageStatus');
+var flowNowText = document.getElementById('flowNowText');
+var flowNextText = document.getElementById('flowNextText');
+var flowOnlyText = document.getElementById('flowOnlyText');
 var currentPage = 0;
 var currentRound = 0;
 var toastTimer = null;
+var pendingHashPage = null;
 
 function pageRequiredStep(pageIndex){
   if(pageIndex <= 1) return 1;
@@ -1802,6 +1954,16 @@ function canOpenPage(pageIndex){ return pageRequiredStep(pageIndex) <= currentAc
 function canOpenRound(roundIndex){ return roundRequiredStep(roundIndex) <= currentActivityStep; }
 function stageText(){
   return ACTIVITY_STEP_NAMES[Math.max(1, Math.min(10, currentActivityStep))] || '現場流程';
+}
+function nextStageText(){
+  if(currentActivityStep >= 10) return '今天的小聚已完成';
+  return ACTIVITY_STEP_NAMES[Math.max(1, Math.min(10, currentActivityStep + 1))] || '跟著現場引導';
+}
+function onlyNeedText(){
+  if(currentActivityStep < 4) return '先安定下來，跟著現場引導';
+  if(currentActivityStep < 8) return '停在目前輪次，慢慢聽也慢慢說';
+  if(currentActivityStep < 10) return '把今天有感的一點提醒寫下來';
+  return '帶著今天收到的豐盛，輕鬆交流與道別';
 }
 function openRoundText(){
   if(currentActivityStep >= 7) return '目前開放：第一輪、第二輪、第三輪';
@@ -1859,6 +2021,9 @@ function syncLocks(){
   if(progressLabel){ progressLabel.textContent = '目前流程：' + stageText(); }
   if(flowStageStatus){ flowStageStatus.textContent = '目前流程：' + stageText(); }
   if(questionStageStatus){ questionStageStatus.textContent = openRoundText(); }
+  if(flowNowText){ flowNowText.textContent = stageText(); }
+  if(flowNextText){ flowNextText.textContent = nextStageText(); }
+  if(flowOnlyText){ flowOnlyText.textContent = onlyNeedText(); }
 }
 
 function goTo(i){
@@ -1919,6 +2084,11 @@ function applyRemoteStage(value){
   var next = parseInt(value, 10);
   if(isNaN(next)) return;
   currentActivityStep = Math.max(1, Math.min(10, next));
+  if(pendingHashPage !== null){
+    var requestedPage = pendingHashPage;
+    pendingHashPage = null;
+    if(canOpenPage(requestedPage)){ goTo(requestedPage); return; }
+  }
   if(currentPage === 2 && !canOpenRound(currentRound)){
     if(currentActivityStep < 4){ goTo(1); }
     else if(currentActivityStep < 5){ selectRound(0); }
@@ -1968,10 +2138,13 @@ function fetchRemoteStage(){
 window.addEventListener('DOMContentLoaded', function(){
   syncLocks();
   fetchRemoteStage();
-  if(CONTROL_SHEET_CSV_URL){ setInterval(fetchRemoteStage, CONTROL_POLL_MS); }
+  if(CONTROL_SHEET_LIVE_CSV_URL || CONTROL_SHEET_CSV_URL){ setInterval(fetchRemoteStage, CONTROL_POLL_MS); }
   var start = parseInt((location.hash||'').replace('#',''),10);
-  if(!isNaN(start) && start>=0 && start<pages.length){ goTo(start); }
-  else {
+  if(!isNaN(start) && start>=0 && start<pages.length){
+    if(canOpenPage(start)){ goTo(start); return; }
+    pendingHashPage = start;
+  }
+  {
     document.querySelectorAll('#page-0 .fade-in').forEach(function(el){
       requestAnimationFrame(function(){ el.classList.add('visible'); });
     });
@@ -2012,6 +2185,21 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
