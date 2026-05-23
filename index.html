@@ -1642,6 +1642,15 @@ body:not(.is-home) .village{
   line-height:1.75;
   color:rgba(143,100,40,.68);
 }
+.feedback-return-links{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:14px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
 #page-4 .feedback-invite{
   margin-top:24px;
   background:linear-gradient(180deg, rgba(255,250,240,.84), rgba(255,244,222,.68));
@@ -2062,7 +2071,7 @@ body:not(.is-home) .village{
     <span class="dot" data-go="3" role="button" aria-label="第4頁 最後沉澱"></span>
     <span class="dot" data-go="4" role="button" aria-label="第5頁 感謝你帶來的豐盛"></span>
   </div>
-  <div class="progress-label" id="progressLabel">目前流程：讀取中</div>
+  <div class="progress-label" id="progressLabel">目前頁面：首頁</div>
 </nav>
 
 <main class="viewport">
@@ -2223,7 +2232,7 @@ body:not(.is-home) .village{
         <!-- 可修改區塊 2｜Google 表單連結（請把 # 換成你的表單網址） -->
         <a class="btn closing-feedback" href="https://docs.google.com/forms/d/e/1FAIpQLSf6U6jmv1ByRUIaNqxL2ygm63Y0xGIx_OQHhFc9qS4i_TUSyA/viewform?usp=sharing&ouid=104920475141023148356" target="_blank" rel="noopener noreferrer" data-form-link>填寫今日回饋表單 <span class="arrow">→</span></a>
         <div class="feedback-note">大約 2–3 分鐘，填完就可以回到現場自由分享。</div>
-        <div><button class="btn-link" data-go="2">← 回交流題目</button></div>
+        <div class="feedback-return-links"><button class="btn-link" data-go="1">← 回今日流程</button><button class="btn-link" data-go="2">← 回交流題目</button></div>
       </div>
     </div>
   </section>
@@ -2317,6 +2326,9 @@ function canOpenRound(roundIndex){ return roundRequiredStep(roundIndex) <= curre
 function stageText(){
   return ACTIVITY_STEP_NAMES[Math.max(1, Math.min(10, currentActivityStep))] || '現場流程';
 }
+function pageLabelText(){
+  return '目前頁面：' + (PAGE_NAMES[currentPage] || '現場流程');
+}
 function nextStageText(){
   if(currentActivityStep >= 10) return '今天的小聚已完成';
   return ACTIVITY_STEP_NAMES[Math.max(1, Math.min(10, currentActivityStep + 1))] || '跟著現場引導';
@@ -2380,7 +2392,7 @@ function syncLocks(){
     item.setAttribute('aria-disabled', open ? 'false' : 'true');
     item.classList.toggle('is-current', step === currentActivityStep);
   });
-  if(progressLabel){ progressLabel.textContent = '目前流程：' + stageText(); }
+  if(progressLabel){ progressLabel.textContent = pageLabelText(); }
   if(flowStageStatus){ flowStageStatus.textContent = '目前流程：' + stageText(); }
   if(questionStageStatus){ questionStageStatus.textContent = openRoundText(); }
   if(flowNowText){ flowNowText.textContent = stageText(); }
@@ -2394,7 +2406,7 @@ function goTo(i){
   currentPage = i;
   pages.forEach(function(p, idx){ p.classList.toggle('active', idx === i); });
   dots.forEach(function(d, idx){ d.classList.toggle('active', idx === i); });
-  if(progressLabel){ progressLabel.textContent = '目前流程：' + stageText(); }
+  if(progressLabel){ progressLabel.textContent = pageLabelText(); }
   document.body.classList.toggle('is-home', i === 0);
   window.scrollTo({ top:0, behavior:'auto' });
   document.querySelectorAll('#page-'+i+' .fade-in').forEach(function(el){
@@ -2548,6 +2560,7 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+
 
 
 
