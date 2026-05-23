@@ -2279,10 +2279,10 @@ body:not(.is-home) .village{
    6 稍作休息 / 7 第三輪豐盛交流 / 8 沉澱書寫與回饋 / 9 自由交流與連結 / 10 合照也感謝今日豐盛
    沒填連結時，網站維持全開，方便本機預覽。
 */
-var CONTROL_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRnEFNaVxbNitvsaq77GSmwYkA500X3Q75jPMiMi9IDEDX_GQrvpgpJ2dZCym25BR7DM8LEC7XULoVA/pub?gid=1324438231&single=true&output=csv';
-var CONTROL_SHEET_LIVE_CSV_URL = 'https://docs.google.com/spreadsheets/d/1XN73jDLzpebhyZbaTyBqcjYu9sgM_IHY32PDW3l1IMo/gviz/tq?tqx=out:csv&gid=1324438231&range=A1:C1';
+var CONTROL_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1ZKJOzG_A_SggSGf8tTTTu8DroofJJDZe5g7TsnPxriE/gviz/tq?tqx=out:csv&gid=473572534&range=A1:C2';
+var CONTROL_SHEET_LIVE_CSV_URL = 'https://docs.google.com/spreadsheets/d/1ZKJOzG_A_SggSGf8tTTTu8DroofJJDZe5g7TsnPxriE/gviz/tq?tqx=out:csv&gid=473572534&range=A1:C2';
 var CONTROL_POLL_MS = 5000;
-var currentActivityStep = CONTROL_SHEET_CSV_URL ? 1 : 10;
+var currentActivityStep = (CONTROL_SHEET_LIVE_CSV_URL || CONTROL_SHEET_CSV_URL) ? 1 : 10;
 
 /* ===== 頁面切換 ===== */
 var pages = document.querySelectorAll('.page');
@@ -2466,7 +2466,8 @@ function applyRemoteStage(value){
   syncLocks();
 }
 function readStageFromCsv(csvText){
-  var firstLine = String(csvText || '').split(/\r?\n/)[0] || '';
+  var lines = String(csvText || '').split(/\r?\n/).filter(function(line){ return line.trim(); });
+  var firstLine = lines.length > 1 ? lines[1] : (lines[0] || '');
   var cells = firstLine.split(',');
   var value = cells.length > 1 ? cells[1] : firstLine;
   var match = String(value).match(/\b(10|[1-9])\b/);
@@ -2547,6 +2548,9 @@ window.addEventListener('DOMContentLoaded', function(){
 </script>
 </body>
 </html>
+
+
+
 
 
 
