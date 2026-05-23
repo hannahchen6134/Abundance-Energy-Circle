@@ -2405,7 +2405,21 @@ body:not(.is-home) .village{
 var CONTROL_SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1ZKJOzG_A_SggSGf8tTTTu8DroofJJDZe5g7TsnPxriE/gviz/tq?tqx=out:csv&gid=473572534&range=A1:C2';
 var CONTROL_SHEET_LIVE_CSV_URL = 'https://docs.google.com/spreadsheets/d/1ZKJOzG_A_SggSGf8tTTTu8DroofJJDZe5g7TsnPxriE/gviz/tq?tqx=out:csv&gid=473572534&range=A1:C2';
 var CONTROL_POLL_MS = 5000;
-var currentActivityStep = (CONTROL_SHEET_LIVE_CSV_URL || CONTROL_SHEET_CSV_URL) ? 1 : 10;
+var STAGE_CACHE_KEY = 'abundanceCurrentActivityStep';
+function normalizeStageValue(value){
+  var match = String(value == null ? '' : value).trim().match(/^(10|[1-9])$/);
+  return match ? parseInt(match[1], 10) : null;
+}
+function readCachedStage(){
+  try { return normalizeStageValue(localStorage.getItem(STAGE_CACHE_KEY)); }
+  catch(e){ return null; }
+}
+function saveCachedStage(step){
+  try { localStorage.setItem(STAGE_CACHE_KEY, String(step)); }
+  catch(e){}
+}
+var cachedActivityStep = readCachedStage();
+var currentActivityStep = cachedActivityStep || 10;
 
 /* ===== 頁面切換 ===== */
 var pages = document.querySelectorAll('.page');
@@ -2569,9 +2583,10 @@ document.querySelectorAll('.flow-link').forEach(function(item){
   });
 });
 function applyRemoteStage(value){
-  var next = parseInt(value, 10);
-  if(isNaN(next)) return;
-  currentActivityStep = Math.max(1, Math.min(10, next));
+  var next = normalizeStageValue(value);
+  if(next === null) return;
+  currentActivityStep = next;
+  saveCachedStage(currentActivityStep);
   if(pendingHashPage !== null){
     var requestedPage = pendingHashPage;
     pendingHashPage = null;
@@ -2591,13 +2606,37 @@ function applyRemoteStage(value){
   }
   syncLocks();
 }
+function parseCsvRows(csvText){
+  var rows = [];
+  var row = [];
+  var cell = '';
+  var inQuotes = false;
+  var text = String(csvText || '');
+  for(var i=0; i<text.length; i++){
+    var ch = text[i];
+    var next = text[i + 1];
+    if(ch === '"'){
+      if(inQuotes && next === '"'){ cell += '"'; i++; }
+      else { inQuotes = !inQuotes; }
+    }
+    else if(ch === ',' && !inQuotes){ row.push(cell); cell = ''; }
+    else if((ch === '\n' || ch === '\r') && !inQuotes){
+      if(ch === '\r' && next === '\n'){ i++; }
+      row.push(cell);
+      if(row.some(function(value){ return String(value).trim(); })){ rows.push(row); }
+      row = [];
+      cell = '';
+    }
+    else { cell += ch; }
+  }
+  row.push(cell);
+  if(row.some(function(value){ return String(value).trim(); })){ rows.push(row); }
+  return rows;
+}
 function readStageFromCsv(csvText){
-  var lines = String(csvText || '').split(/\r?\n/).filter(function(line){ return line.trim(); });
-  var firstLine = lines.length > 1 ? lines[1] : (lines[0] || '');
-  var cells = firstLine.split(',');
-  var value = cells.length > 1 ? cells[1] : firstLine;
-  var match = String(value).match(/\b(10|[1-9])\b/);
-  return match ? match[1] : null;
+  var rows = parseCsvRows(csvText);
+  if(rows.length < 2 || rows[1].length < 2) return null;
+  return normalizeStageValue(rows[1][1]);
 }
 function fetchRemoteStage(){
   var urls = [];
